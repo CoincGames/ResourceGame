@@ -9,9 +9,9 @@ public class PickupHealth : MonoBehaviour
     [SerializeField]
     [Tooltip("The amount of health to give to a player.")]
     [Range(1f, 100f)]
-    private float suppliedHealth;
+    private float suppliedHealth = 25;
 
-    [Tooltip("The node parent spawner of this object./n/nNOTE: Can be left empty")]
+    [Tooltip("The node parent spawner of this object.\n\nNOTE: Can be left empty")]
     public HealthSpawner nodeSpawnerScript;
 
     private void OnTriggerEnter(Collider other)
