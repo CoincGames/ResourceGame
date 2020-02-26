@@ -6458,7 +6458,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 50
   healthRegenerationRate: 3
-  healthBar: {fileID: 0}
+  healthBar: {fileID: 2034996852}
 --- !u!114 &716227059
 MonoBehaviour:
   m_ObjectHideFlags: 0

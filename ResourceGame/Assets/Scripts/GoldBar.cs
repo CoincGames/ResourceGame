@@ -8,11 +8,6 @@ public class GoldBar : MonoBehaviour
     public Text textView;
     public Slider slider;
 
-    private void Start()
-    {
-        container.SetActive(false);
-    }
-
     // Update is called once per frame
     void Update()
     {
