@@ -30,6 +30,8 @@ public class HealthSpawner : MonoBehaviour
             if (!isSpawned)
             {
                 GameObject instantiated = Instantiate(toSpawn, transform.position + new Vector3(0, 1, 0), transform.rotation) as GameObject;
+                instantiated.transform.Rotate(-90, 0, 0);
+
                 instantiated.GetComponent<PickupHealth>().nodeSpawnerScript = this;
                 isSpawned = true;
             }

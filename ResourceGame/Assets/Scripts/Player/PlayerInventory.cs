@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerInventory : MonoBehaviour
 {
     [Tooltip("The max items a player can carry at one time.")]
     public int maxInventorySpace;
 
-    public int gold;
+    [SerializeField]
+    [Tooltip("The menu to close on the inventory press key.")]
+    private GameObject inventoryMenu;
 
     private void Update()
     {
@@ -13,8 +16,13 @@ public class PlayerInventory : MonoBehaviour
         {
             Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
 
-            if (gold < maxInventorySpace)
-                gold++;
+            if (!inventoryMenu.activeSelf)
+            {
+                inventoryMenu.SetActive(true);
+            } else
+            {
+                inventoryMenu.SetActive(false);
+            }
         }
     }
 }

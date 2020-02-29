@@ -18,13 +18,19 @@ public class PlayerHealth : MonoBehaviour
 
     private void Update()
     {
+        regenerateHealth();
+
+        // Update the UI
+        healthBar.SetHealth(currentHealth);
+    }
+
+    private void regenerateHealth()
+    {
         if (currentHealth < maxHealth)
         {
             currentHealth += healthRegenerationRate * Time.deltaTime;
             if (currentHealth > maxHealth)
                 currentHealth = maxHealth;
         }
-
-        healthBar.SetHealth(currentHealth);
     }
 }
