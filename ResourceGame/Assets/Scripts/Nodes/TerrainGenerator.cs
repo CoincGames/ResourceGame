@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TerrainGenerator : MonoBehaviour
 {
@@ -11,6 +9,15 @@ public class TerrainGenerator : MonoBehaviour
     [SerializeField]
     [Tooltip("The map size to generate.")]
     private int mapSize = 12;
+
+    [Header("Spawning Resources Properties.")]
+    [Tooltip("The spawn rate of these items.")]
+    [Range(0f, 1f)]
+    public float spawnRatePercentage;
+
+    [SerializeField]
+    [Tooltip("The possible prefab resources to spawn.\n\nNOTE: Should be of type pickup")]
+    private GameObject[] possibleSpawns;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +31,10 @@ public class TerrainGenerator : MonoBehaviour
             {
                 GameObject instantiated = Instantiate(terrainTile, centerVector + new Vector3(x, 0, z), transform.rotation) as GameObject;
                 instantiated.transform.SetParent(gameObject.transform);
+
+                SpawnResource script = instantiated.AddComponent<SpawnResource>();
+                script.spawnRatePercentage = spawnRatePercentage;
+                script.possibleSpawns = possibleSpawns;
             }
         }
 

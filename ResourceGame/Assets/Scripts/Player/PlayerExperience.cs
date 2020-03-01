@@ -1,16 +1,17 @@
 ﻿using UnityEngine;
 
-// TODO serialize and tooltips
 public class PlayerExperience : MonoBehaviour
 {
-    public static int maxLevel = 100; // TODO Put in constants file
-    public static int xpNeededForFirstLevel = 25;
-    public static int xpNeededForFinalLevel = 10000;
-
+    [SerializeField]
+    [Tooltip("The current level of this player.")]
     public int currentLevel = 1;
 
+    [SerializeField]
+    [Tooltip("The current experience towards the next level for this player.")]
     public float currentExperience = 0;
 
+    [SerializeField]
+    [Tooltip("The XP bar to update the UI on when xp or levels change.")]
     public XPBar xpBar;
 
     private void Awake()
@@ -20,10 +21,14 @@ public class PlayerExperience : MonoBehaviour
 
     private void Update()
     {
-        currentExperience += Time.deltaTime * 5f; // TODO Temp
-
         checkLevelUp();
         xpBar.SetXP(currentExperience);
+    }
+
+    public void addXp(float xp)
+    {
+        currentExperience += xp;
+        checkLevelUp();
     }
 
     private void checkLevelUp()
@@ -44,11 +49,11 @@ public class PlayerExperience : MonoBehaviour
 
     private long getNeededXP()
     {
-        if (currentLevel >= maxLevel)
+        if (currentLevel >= Constants.maxLevel)
             return -1;
 
-        float scalingFactor = Mathf.Log((xpNeededForFinalLevel / Mathf.Log(maxLevel, 2)) - 24) / Mathf.Log(maxLevel - 1);
+        float scalingFactor = Mathf.Log((Constants.xpNeededForFinalLevel / Mathf.Log(Constants.maxLevel, 2)) - 24) / Mathf.Log(Constants.maxLevel - 1);
 
-        return System.Convert.ToInt64(Mathf.Log(currentLevel + 1, 2) * (xpNeededForFirstLevel - 1 + Mathf.Pow(currentLevel, scalingFactor)));
+        return System.Convert.ToInt64(Mathf.Log(currentLevel + 1, 2) * (Constants.xpNeededForFirstLevel - 1 + Mathf.Pow(currentLevel, scalingFactor)));
     }
 }
