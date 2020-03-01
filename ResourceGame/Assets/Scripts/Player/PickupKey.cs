@@ -56,7 +56,7 @@ public class PickupKey : MonoBehaviour
         {
             if (wantToSelect != null)
             {
-                wantToSelect.PickUp(gameObject.GetComponentInParent<PlayerExperience>());
+                wantToSelect.PickUp(gameObject.GetComponentInParent<PlayerExperience>(), gameObject.GetComponentInParent<PlayerInventory>());
             }
         }
     }

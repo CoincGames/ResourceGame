@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -9,6 +9,8 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField]
     [Tooltip("The menu to close on the inventory press key.")]
     private GameObject inventoryMenu;
+
+    public Dictionary<Resource.ResourceType, int> invMap = new Dictionary<Resource.ResourceType, int>();
 
     private void Update()
     {
