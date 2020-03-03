@@ -11,6 +11,10 @@ public class PickupKey : MonoBehaviour
     [Tooltip("The pickup text view to display when looking at a pickupable object.")]
     private Text pickupText;
 
+    [SerializeField]
+    [Tooltip("The slide view component that owns the slide animation script.")]
+    private PickupSlideView slideView;
+
     private Resource wantToSelect;
 
     // Update is called once per frame
@@ -56,6 +60,7 @@ public class PickupKey : MonoBehaviour
         {
             if (wantToSelect != null)
             {
+                slideView.displayWithResource(wantToSelect);
                 wantToSelect.PickUp(gameObject.GetComponentInParent<PlayerExperience>(), gameObject.GetComponentInParent<PlayerInventory>());
             }
         }
