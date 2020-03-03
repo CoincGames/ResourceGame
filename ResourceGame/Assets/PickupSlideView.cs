@@ -7,10 +7,36 @@ public class PickupSlideView : MonoBehaviour
     public Text slideText;
     public Animation slideAnimation;
 
+    private Resource.ResourceType lastType;
+    private bool recentPickup = false;
+    private int count = 0;
+
     public void displayWithResource(Resource rss)
     {
-        gameObject.SetActive(true);
-        slideText.text = "+ " + rss.name + " x1";
+        if (gameObject.activeSelf)
+        {
+            if (lastType == rss.type)
+            {
+                recentPickup = true;
+                count++;
+                updateTextDisplay(rss);
+            } else
+            {
+                // put in queue and display after
+            }
+        } else
+        {
+            gameObject.SetActive(true);
+            recentPickup = true;
+            lastType = rss.type;
+            count++;
+            updateTextDisplay(rss);
+        }
+    }
+
+    private void updateTextDisplay(Resource rss)
+    {
+        slideText.text = "+ " + rss.name + " x" + count;
     }
 
     public void pause()
@@ -24,11 +50,15 @@ public class PickupSlideView : MonoBehaviour
 
     private IEnumerator waitToClose()
     {
-        yield return new WaitForSeconds(2f);
-        finshClosing();
+        while (recentPickup)
+        {
+            recentPickup = false;
+            yield return new WaitForSeconds(2f);
+        }
+        finishClosing();
     }
 
-    public void finshClosing()
+    public void finishClosing()
     {
         foreach (AnimationState item in slideAnimation)
         {
@@ -36,8 +66,10 @@ public class PickupSlideView : MonoBehaviour
         }
     }
 
+    // Called at the end of the animation
     public void resetView()
     {
+        count = 0;
         gameObject.SetActive(false);
     }
 }

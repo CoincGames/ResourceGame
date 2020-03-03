@@ -706,7 +706,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewFromCamera: {fileID: 534669904}
   pickupText: {fileID: 819740584}
-  uiView: {fileID: 386471120}
+  pickupSlideView: {fileID: 386471120}
 --- !u!1 &618347006
 GameObject:
   m_ObjectHideFlags: 0

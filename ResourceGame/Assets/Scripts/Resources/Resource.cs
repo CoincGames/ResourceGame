@@ -4,6 +4,7 @@ public class Resource : MonoBehaviour
 {
     public new string name { get; set; }
     public float xp { get; set; }
+    public ResourceType type { get; set; }
 
     public virtual void PickUp(PlayerExperience experience, PlayerInventory inventory)
     {

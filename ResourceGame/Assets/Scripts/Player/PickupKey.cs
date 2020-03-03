@@ -13,7 +13,7 @@ public class PickupKey : MonoBehaviour
 
     [SerializeField]
     [Tooltip("The slide view component that owns the slide animation script.")]
-    private PickupSlideView slideView;
+    private PickupSlideView pickupSlideView;
 
     private Resource wantToSelect;
 
@@ -60,7 +60,7 @@ public class PickupKey : MonoBehaviour
         {
             if (wantToSelect != null)
             {
-                slideView.displayWithResource(wantToSelect);
+                pickupSlideView.displayWithResource(wantToSelect);
                 wantToSelect.PickUp(gameObject.GetComponentInParent<PlayerExperience>(), gameObject.GetComponentInParent<PlayerInventory>());
             }
         }
