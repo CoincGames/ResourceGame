@@ -3418,10 +3418,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3937274448c5ae94dbeed33dc80a0893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drawMode: 0
   mapWidth: 100
   mapHeight: 100
-  noiseScale: 2
+  noiseScale: 25
+  octaves: 4
+  persistence: 0.538
+  lacunarity: 2
+  seed: 555
+  offset: {x: 0, y: 0}
   autoUpdate: 1
+  regions:
+  - name: Water
+    height: 0.4
+    color: {r: 0, g: 0, b: 1, a: 0}
+  - name: Land
+    height: 1
+    color: {r: 0.008210714, g: 0.4811321, b: 0, a: 0}
 --- !u!4 &1604488216
 Transform:
   m_ObjectHideFlags: 0
