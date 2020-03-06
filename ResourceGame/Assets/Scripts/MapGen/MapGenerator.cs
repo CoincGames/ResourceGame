@@ -23,6 +23,11 @@ public class MapGenerator : MonoBehaviour
 
     public TerrainType[] regions;
 
+    private void Awake()
+    {
+        GenerateMap();
+    }
+
     public void GenerateMap()
     {
         float[,] noiseMap = Noise.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScale, octaves, persistence, lacunarity, offset);
@@ -46,9 +51,9 @@ public class MapGenerator : MonoBehaviour
 
         MapDisplay display = FindObjectOfType<MapDisplay>();
         if (drawMode == DrawMode.NoiseMap)
-            display.DrawNoiseMap(noiseMap);
-        //else if (drawMode == DrawMode.ColorMap) TODO
-
+            display.DrawTexture(TextureGenerator.TextureFromHeightMap(noiseMap));
+        else if (drawMode == DrawMode.ColorMap)
+            display.DrawTexture(TextureGenerator.TextureFromColorMap(colorMap, mapWidth, mapHeight));
     }
 
     private void OnValidate()

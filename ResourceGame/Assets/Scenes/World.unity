@@ -1873,8 +1873,9 @@ MonoBehaviour:
   mapSize: 12
   spawnRatePercentage: 0.1
   possibleSpawns:
-  - {fileID: 942953679178442340, guid: 0e4cb78db988c7e448c5b17f06e68070, type: 3}
+  - {fileID: 7569579041996131910, guid: 345c003aaf89df14da4621891acd6076, type: 3}
   - {fileID: 5566343063777133972, guid: 5ba6aa42ac8a9c6458e20fff6a90a60c, type: 3}
+  - {fileID: 3353111217760829065, guid: 2784bf6859e4ab24eb40125492b4d05c, type: 3}
 --- !u!1 &789896720
 GameObject:
   m_ObjectHideFlags: 0
@@ -3418,7 +3419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3937274448c5ae94dbeed33dc80a0893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drawMode: 0
+  drawMode: 1
   mapWidth: 100
   mapHeight: 100
   noiseScale: 25
@@ -3429,12 +3430,24 @@ MonoBehaviour:
   offset: {x: 0, y: 0}
   autoUpdate: 1
   regions:
-  - name: Water
-    height: 0.4
+  - name: Deep Water
+    height: 0.2
     color: {r: 0, g: 0, b: 1, a: 0}
-  - name: Land
+  - name: Water
+    height: 0.35
+    color: {r: 0, g: 0.2296853, b: 1, a: 0}
+  - name: Sand
+    height: 0.42
+    color: {r: 0.9056604, g: 0.81348914, b: 0.5254539, a: 0}
+  - name: Grass
+    height: 0.66
+    color: {r: 0.017937746, g: 0.5943396, b: 0.008410451, a: 0}
+  - name: Mountain
+    height: 0.88
+    color: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 0}
+  - name: High Mountain
     height: 1
-    color: {r: 0.008210714, g: 0.4811321, b: 0, a: 0}
+    color: {r: 1, g: 1, b: 1, a: 0}
 --- !u!4 &1604488216
 Transform:
   m_ObjectHideFlags: 0

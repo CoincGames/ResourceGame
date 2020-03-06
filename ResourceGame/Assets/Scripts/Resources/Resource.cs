@@ -8,6 +8,7 @@ public class Resource : MonoBehaviour
 
     public virtual void PickUp(PlayerExperience experience, PlayerInventory inventory)
     {
+        addToInv(type, inventory);
         experience.addXp(xp);
 
         Destroy(gameObject);
@@ -31,6 +32,7 @@ public class Resource : MonoBehaviour
     public enum ResourceType
     {
         SmallRock,
+        WoodStick,
         WoodLog
     }
 }
