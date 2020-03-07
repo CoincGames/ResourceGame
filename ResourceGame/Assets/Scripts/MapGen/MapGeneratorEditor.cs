@@ -8,9 +8,9 @@ public class MapGeneratorEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        MapGenerator mapGen = (MapGenerator)target;
+        MapGenerator mapGen = (MapGenerator) target;
 
         if ((DrawDefaultInspector() && mapGen.autoUpdate) || GUILayout.Button("Generate"))
-            mapGen.GenerateMap();
+            mapGen.DrawMapInEditor();
     }
 }
