@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     [Tooltip("The desired move speed of the character from a walk.")]
-    [Range(1f, 10f)]
+    [Range(1f, 100f)]
     private float moveSpeed = 5f;
 
     [SerializeField]
