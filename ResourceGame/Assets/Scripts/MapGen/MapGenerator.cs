@@ -15,7 +15,13 @@ public class MapGenerator : MonoBehaviour
 
     public Material terrainMaterial;
 
-    [Range(0, 6)]
+    [Range(0, MeshGenerator.numSupportedChunkSizes - 1)]
+    public int chunkSizeIndex;
+
+    [Range(0, MeshGenerator.numSupportedFlatShadedChunkSizes - 1)]
+    public int flatShadedChunkSizeIndex;
+
+    [Range(0, MeshGenerator.numSupportedLODs - 1)]
     public int editorPreviewLOD;
 
     public bool autoUpdate;
@@ -24,6 +30,28 @@ public class MapGenerator : MonoBehaviour
 
     Queue<MapThreadInfo<MapData>> mapDataThreadInfoQueue = new Queue<MapThreadInfo<MapData>>();
     Queue<MapThreadInfo<MeshData>> meshDataThreadInfoQueue = new Queue<MapThreadInfo<MeshData>>();
+
+    // Accessor for the chunk size of a map chunk
+    public int mapChunkSize
+    {
+        get
+        {
+            if (terrainData.useFlatShading)
+            {
+                return MeshGenerator.supportedFlatShadedChunkSizes[flatShadedChunkSizeIndex] - 1;
+            }
+            else
+            {
+                return MeshGenerator.supportedChunkSizes[chunkSizeIndex] - 1;
+            }
+        }
+    }
+
+    private void Awake()
+    {
+        textureData.ApplyToMaterial(terrainMaterial);
+        textureData.UpdateMeshHeights(terrainMaterial, terrainData.minHeight, terrainData.maxHeight);
+    }
 
     void OnValuesUpdated()
     {
@@ -38,22 +66,9 @@ public class MapGenerator : MonoBehaviour
         textureData.ApplyToMaterial(terrainMaterial);
     }
 
-    public int mapChunkSize
-    {
-        get
-        {
-            if (terrainData.useFlatShading)
-            {
-                return 95;
-            } else
-            {
-                return 239;
-            }
-        }
-    }
-
     public void DrawMapInEditor()
     {
+        textureData.UpdateMeshHeights(terrainMaterial, terrainData.minHeight, terrainData.maxHeight);
         MapData mapData = GenerateMapData(Vector2.zero);
 
         MapDisplay display = FindObjectOfType<MapDisplay>();
@@ -147,8 +162,6 @@ public class MapGenerator : MonoBehaviour
                 }
             }
         }
-
-        textureData.UpdateMeshHeights(terrainMaterial, terrainData.minHeight, terrainData.maxHeight);
 
         // And return the applied falloff terrain map
         return new MapData(noiseMap);
