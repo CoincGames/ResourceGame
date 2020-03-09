@@ -15,6 +15,9 @@ public class PlayerMovement : MonoBehaviour
     [Range(1f, 100f)]
     private float moveSpeed = 5f;
 
+    public bool isSprinting = false;
+    public float sprintMultiplier = 2f;
+
     [SerializeField]
     [Tooltip("The force of gravity applied to the player per second")]
     private float gravity = -9.81f;
@@ -46,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
         checkIfGrounded();
         doPlayerMovement();
         applyGravity();
+        ListenForSprint();
     }
 
     private void checkIfGrounded()
@@ -78,5 +82,15 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    private void ListenForSprint()
+    {
+        if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            moveSpeed = isSprinting ? moveSpeed / sprintMultiplier : moveSpeed * sprintMultiplier;
+
+            isSprinting = !isSprinting;
+        }
     }
 }
