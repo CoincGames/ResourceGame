@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class TerrainGenerator : MonoBehaviour
+public class TerrainGeneratorNode : MonoBehaviour
 {
     [SerializeField]
     [Tooltip("The type of terrain node to spawn.")]
