@@ -19,9 +19,7 @@ public class UpdatableData : ScriptableObject
     {
         UnityEditor.EditorApplication.update -= NotifyOfUpdatedValues;
 
-        if (OnValuesUpdated != null) {
-            OnValuesUpdated();
-        }
+        OnValuesUpdated?.Invoke();
     }
 
     #endif

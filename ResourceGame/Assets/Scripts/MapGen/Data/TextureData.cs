@@ -48,7 +48,6 @@ public class TextureData : UpdatableData
         }
         textureArray.Apply();
         return textureArray;
-
     }
 
     [System.Serializable]

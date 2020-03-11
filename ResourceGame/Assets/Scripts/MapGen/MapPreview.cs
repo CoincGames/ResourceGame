@@ -14,6 +14,7 @@ public class MapPreview : MonoBehaviour
     public MeshSettings meshSettings;
     public HeightMapSettings heightMapSettings;
     public TextureData textureData;
+    public MapRulesSettings mapRulesSettings;
 
     public Material terrainMaterial;
 
@@ -26,14 +27,14 @@ public class MapPreview : MonoBehaviour
     {
         textureData.ApplyToMaterial(terrainMaterial);
         textureData.UpdateMeshHeights(terrainMaterial, heightMapSettings.minHeight, heightMapSettings.maxHeight);
-        HeightMap heightMap = HeightMapGenerator.GenerateHeightMap(meshSettings.numberVerticesPerLine, meshSettings.numberVerticesPerLine, heightMapSettings, Vector2.zero);
+        HeightMap heightMap = HeightMapGenerator.GenerateHeightMap(meshSettings.numberVerticesPerLine, meshSettings.numberVerticesPerLine, heightMapSettings, mapRulesSettings, Vector2.zero);
 
         if (drawMode == DrawMode.NoiseMap)
             DrawTexture(TextureGenerator.TextureFromHeightMap(heightMap));
         else if (drawMode == DrawMode.Mesh)
             DrawMesh(MeshGenerator.GenerateTerrainMesh(heightMap.values, meshSettings, editorPreviewLOD));
         else if (drawMode == DrawMode.FalloffMap)
-            DrawTexture(TextureGenerator.TextureFromHeightMap(new HeightMap(FalloffGenerator.GenerateFalloffMap(meshSettings.numberVerticesPerLine), 0, 1)));
+            DrawTexture(TextureGenerator.TextureFromHeightMap(new HeightMap(FalloffGenerator.GenerateFalloffMap(meshSettings.numberVerticesPerLine, mapRulesSettings), 0, 1)));
     }
 
     public void DrawTexture(Texture2D texture)
@@ -82,6 +83,11 @@ public class MapPreview : MonoBehaviour
         {
             textureData.OnValuesUpdated -= OnTextureValuesUpdated;
             textureData.OnValuesUpdated += OnTextureValuesUpdated;
+        }
+        if (mapRulesSettings != null)
+        {
+            mapRulesSettings.OnValuesUpdated -= OnValuesUpdated;
+            mapRulesSettings.OnValuesUpdated += OnValuesUpdated;
         }
     }
 }

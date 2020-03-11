@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d7856233026ded419c4220b75c6057e, type: 3}
-  m_Name: DefaultMeshSettings
+  m_Script: {fileID: 11500000, guid: 46e1129b7b8d12741aa2efeb33824a6d, type: 3}
+  m_Name: EndlessMapSettings
   m_EditorClassIdentifier: 
   autoUpdate: 1
-  meshScale: 4
-  useFlatShading: 0
-  chunkSizeIndex: 4
-  flatShadedChunkSizeIndex: 0
+  useMaxMapSize: 0
+  maxMapSizeInChunks: {x: 16, y: 16}
+  useFalloff: 0
+  slope: 0
+  shift: 0

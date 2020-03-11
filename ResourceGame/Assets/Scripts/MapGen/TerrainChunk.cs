@@ -27,10 +27,11 @@ public class TerrainChunk
 
     HeightMapSettings heightMapSettings;
     MeshSettings meshSettings;
+    MapRulesSettings mapRulesSettings;
 
     Transform viewer;
 
-    public TerrainChunk(Vector2 coord, HeightMapSettings heightMapSettings, MeshSettings meshSettings, LODInfo[] detailLevels, int colliderLODIndex, Transform parent, Transform viewer, Material material)
+    public TerrainChunk(Vector2 coord, HeightMapSettings heightMapSettings, MeshSettings meshSettings, MapRulesSettings mapRulesSettings, LODInfo[] detailLevels, int colliderLODIndex, Transform parent, Transform viewer, Material material)
     {
         this.coord = coord;
         this.detailLevels = detailLevels;
@@ -38,6 +39,7 @@ public class TerrainChunk
 
         this.heightMapSettings = heightMapSettings;
         this.meshSettings = meshSettings;
+        this.mapRulesSettings = mapRulesSettings;
 
         this.viewer = viewer;
 
@@ -73,7 +75,7 @@ public class TerrainChunk
 
     public void Load()
     {
-        ThreadedDataRequester.RequestData(() => HeightMapGenerator.GenerateHeightMap(meshSettings.numberVerticesPerLine, meshSettings.numberVerticesPerLine, heightMapSettings, sampleCenter), OnHeightMapReceived);
+        ThreadedDataRequester.RequestData(() => HeightMapGenerator.GenerateHeightMap(meshSettings.numberVerticesPerLine, meshSettings.numberVerticesPerLine, heightMapSettings, mapRulesSettings, sampleCenter), OnHeightMapReceived);
     }
 
     void OnHeightMapReceived(object heightMap)

@@ -15,20 +15,19 @@ MonoBehaviour:
   autoUpdate: 1
   noiseSettings:
     normalizeMode: 1
-    scale: 50
+    scale: 250
     octaves: 6
-    persistence: 0.35
+    persistence: 0.45
     lacunarity: 2
     seed: 555
     offset: {x: 0, y: 0}
-  useFalloff: 0
-  heightMultiplier: 35
+  heightMultiplier: 250
   heightCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 0
+      time: -0.0007874016
+      value: 0.000011901371
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -36,49 +35,40 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.24208547
-      value: 0.00048203208
-      inSlope: 0.0729911
-      outSlope: 0.0729911
+      time: 0.19855627
+      value: -0.0029197633
+      inSlope: 0.012493561
+      outSlope: 0.012493561
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.11748171
+      outWeight: 0.07008512
     - serializedVersion: 3
-      time: 0.568304
-      value: 0.07926744
-      inSlope: -0.039931595
-      outSlope: -0.039931595
+      time: 0.36630738
+      value: 0.05204297
+      inSlope: 0.94644666
+      outSlope: 0.94644666
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.29026955
+      outWeight: 0.11584392
     - serializedVersion: 3
-      time: 0.8033062
-      value: 0.14083348
-      inSlope: 0.21586727
-      outSlope: 0.21586727
+      time: 0.5589843
+      value: 0.20154329
+      inSlope: 0.5683753
+      outSlope: 0.5683753
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 1
+      outWeight: 0.09050231
     - serializedVersion: 3
-      time: 0.91232914
-      value: 0.5339788
-      inSlope: 2.5995705
-      outSlope: 2.5995705
+      time: 1.0141602
+      value: 0.99344254
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.35113895
-    - serializedVersion: 3
-      time: 1.0772834
-      value: 1.0482631
-      inSlope: 0.28413707
-      outSlope: 0.28413707
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.5144923
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
