@@ -75,7 +75,28 @@ public class TerrainChunk
 
     public void Load()
     {
-        ThreadedDataRequester.RequestData(() => HeightMapGenerator.GenerateHeightMap(meshSettings.numberVerticesPerLine, meshSettings.numberVerticesPerLine, heightMapSettings, mapRulesSettings, sampleCenter), OnHeightMapReceived);
+        ThreadedDataRequester.RequestData(() => (isWithinMapBounds()) ? 
+            HeightMapGenerator.GenerateHeightMap(meshSettings.numberVerticesPerLine, meshSettings.numberVerticesPerLine, heightMapSettings, mapRulesSettings, sampleCenter) : 
+            HeightMapGenerator.GenerateOcean(meshSettings.numberVerticesPerLine, meshSettings.numberVerticesPerLine), OnHeightMapReceived);
+    }
+
+    bool isWithinMapBounds()
+    {
+        bool isInXRange = true;
+        bool isInYRange = true;
+
+        if (mapRulesSettings.useMaxMapSize)
+        {
+            int xRangeFromZero = Mathf.FloorToInt(mapRulesSettings.maxMapSizeInChunks.x / 2);
+            int yRangeFromZero = Mathf.FloorToInt(mapRulesSettings.maxMapSizeInChunks.y / 2);
+
+            if (coord.x < -xRangeFromZero || coord.x > xRangeFromZero)
+                isInXRange = false;
+            if (coord.y < -yRangeFromZero || coord.y > yRangeFromZero)
+                isInYRange = false;
+        }
+
+        return isInXRange && isInYRange;
     }
 
     void OnHeightMapReceived(object heightMap)

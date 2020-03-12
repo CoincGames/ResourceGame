@@ -75,7 +75,9 @@ public class TerrainGenerator : MonoBehaviour
         {
             for (int xOffset = -chunksVisibleInViewDistance; xOffset <= chunksVisibleInViewDistance; xOffset++)
             {
-                Vector2 viewedChunkCoord = new Vector2(currentChunkCoordX + xOffset, currentChunkCoordY + yOffset);
+                int xCord = currentChunkCoordX + xOffset;
+                int yCord = currentChunkCoordY + yOffset;
+                Vector2 viewedChunkCoord = new Vector2(xCord, yCord);
                 if (alreadyUpdatedChunkCoords.Contains(viewedChunkCoord))
                     continue;
 

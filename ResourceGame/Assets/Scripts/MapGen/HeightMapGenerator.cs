@@ -37,7 +37,13 @@ public static class HeightMapGenerator
 
         return new HeightMap(values, minValue, maxValue);
     }
+
+    public static HeightMap GenerateOcean(int width, int height)
+    {
+        return new HeightMap(new float[width, height], 0, 1);
+    }
 }
+
 public struct HeightMap
 {
     public readonly float[,] values;
