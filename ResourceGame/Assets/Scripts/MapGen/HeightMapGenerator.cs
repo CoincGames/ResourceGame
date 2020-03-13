@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class HeightMapGenerator
 {
-    public static HeightMap GenerateHeightMap(int width, int height, HeightMapSettings settings, MapRulesSettings mapRules, Vector2 sampleCenter)
+    public static HeightMap GenerateHeightMap(int width, int height, HeightMapSettings settings, MapRulesSettings mapRules, Vector2 sampleCenter, ChunkBorderInfo borderInfo)
     {
         float[,] values = Noise.GenerateNoiseMap(width, height, settings.noiseSettings, sampleCenter);
 
@@ -13,24 +13,61 @@ public static class HeightMapGenerator
         float minValue = float.MaxValue;
         float maxValue = float.MinValue;
 
-        float[,] falloffMap = FalloffGenerator.GenerateFalloffMap(width, mapRules);
-
-        for (int i = 0; i < width; i++)
+        if (mapRules.useFalloff)
         {
-            for (int j = 0; j < height; j++)
+            float[,] falloffMap;
+
+            if (mapRules.useFalloff)
             {
-                if (mapRules.useFalloff)
+                if (mapRules.maxMapSizeInChunks.x <= 1 && mapRules.maxMapSizeInChunks.y <= 1)
+                    falloffMap = FalloffGenerator.GenerateFalloffMap(width, mapRules);
+                else if (borderInfo.isCorner)
+                    falloffMap = FalloffGenerator.GenerateCornerFalloffMap(width, mapRules, borderInfo.corner);
+                else if (borderInfo.isEdge)
+                    falloffMap = FalloffGenerator.GenerateEdgeFalloffMap(width, mapRules, borderInfo.edge);
+                else 
+                    falloffMap = new float[width, height];
+            } 
+            else
+                falloffMap = new float[width, height];
+
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
                     values[i, j] = Mathf.Clamp01(values[i, j] - falloffMap[i, j]);
 
-                values[i, j] *= heightCurveThreadSafe.Evaluate(values[i, j]) * settings.heightMultiplier;
+                    values[i, j] *= heightCurveThreadSafe.Evaluate(values[i, j]) * settings.heightMultiplier;
 
-                if (values[i,j] > maxValue)
-                {
-                    maxValue = values[i, j];
+                    if (values[i, j] > maxValue)
+                    {
+                        maxValue = values[i, j];
+                    }
+                    if (values[i, j] < minValue)
+                    {
+                        minValue = values[i, j];
+                    }
                 }
-                if (values[i,j] < minValue)
+            }
+        } 
+        else
+        {
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
                 {
-                    minValue = values[i, j];
+                    values[i, j] = Mathf.Clamp01(values[i, j]);
+
+                    values[i, j] *= heightCurveThreadSafe.Evaluate(values[i, j]) * settings.heightMultiplier;
+
+                    if (values[i, j] > maxValue)
+                    {
+                        maxValue = values[i, j];
+                    }
+                    if (values[i, j] < minValue)
+                    {
+                        minValue = values[i, j];
+                    }
                 }
             }
         }

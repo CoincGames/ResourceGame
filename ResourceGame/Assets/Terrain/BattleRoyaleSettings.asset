@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoUpdate: 1
   useMaxMapSize: 1
-  maxMapSizeInChunks: {x: 3, y: 3}
+  maxMapSizeInChunks: {x: 5, y: 5}
   useFalloff: 1
   slope: 2.5
   shift: 7

@@ -27,7 +27,9 @@ public class MapPreview : MonoBehaviour
     {
         textureData.ApplyToMaterial(terrainMaterial);
         textureData.UpdateMeshHeights(terrainMaterial, heightMapSettings.minHeight, heightMapSettings.maxHeight);
-        HeightMap heightMap = HeightMapGenerator.GenerateHeightMap(meshSettings.numberVerticesPerLine, meshSettings.numberVerticesPerLine, heightMapSettings, mapRulesSettings, Vector2.zero);
+
+        ChunkBorderInfo chunkBorderInfo = new ChunkBorderInfo(false, FalloffGenerator.Corner.TOPLEFT, false, FalloffGenerator.Edge.TOP);
+        HeightMap heightMap = HeightMapGenerator.GenerateHeightMap(meshSettings.numberVerticesPerLine, meshSettings.numberVerticesPerLine, heightMapSettings, mapRulesSettings, Vector2.zero, chunkBorderInfo);
 
         if (drawMode == DrawMode.NoiseMap)
             DrawTexture(TextureGenerator.TextureFromHeightMap(heightMap));

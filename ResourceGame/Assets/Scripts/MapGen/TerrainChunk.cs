@@ -75,9 +75,72 @@ public class TerrainChunk
 
     public void Load()
     {
+        bool isCorner = false;
+        FalloffGenerator.Corner corner = FalloffGenerator.Corner.TOPLEFT;
+        bool isEdge = false;
+        FalloffGenerator.Edge edge = FalloffGenerator.Edge.TOP;
+
+        Vector4 mapBounds = getMapBounds();
+
+        // Chunk in top left
+        if (coord.x == mapBounds.x && coord.y == mapBounds.w)
+        {
+            isCorner = true;
+        }
+        // Top right
+        else if (coord.x == mapBounds.w && coord.y == mapBounds.y)
+        {
+            isCorner = true;
+            corner = FalloffGenerator.Corner.BOTTOMLEFT;
+        }
+        // Bottom left
+        else if (coord.x == mapBounds.x && coord.y == mapBounds.z)
+        {
+            isCorner = true;
+            corner = FalloffGenerator.Corner.TOPRIGHT;
+        }
+        // Bottom right
+        else if (coord.x == mapBounds.y && coord.y == mapBounds.z)
+        {
+            isCorner = true;
+            corner = FalloffGenerator.Corner.BOTTOMRIGHT;
+        }
+        // Left
+        else if (coord.x == mapBounds.z)
+        {
+            isEdge = true;
+        }
+        // Bottom
+        else if (coord.y == mapBounds.x)
+        {
+            isEdge = true;
+            edge = FalloffGenerator.Edge.RIGHT;
+        }
+        // Right
+        else if (coord.x == mapBounds.w)
+        {
+            isEdge = true;
+            edge = FalloffGenerator.Edge.BOTTOM;
+        }
+        else if (coord.y == mapBounds.y)
+        {
+            isEdge = true;
+            edge = FalloffGenerator.Edge.LEFT;
+        }
+
+        ChunkBorderInfo chunkBorderInfo = new ChunkBorderInfo(isCorner, corner, isEdge, edge);
+
         ThreadedDataRequester.RequestData(() => (isWithinMapBounds()) ? 
-            HeightMapGenerator.GenerateHeightMap(meshSettings.numberVerticesPerLine, meshSettings.numberVerticesPerLine, heightMapSettings, mapRulesSettings, sampleCenter) : 
+            HeightMapGenerator.GenerateHeightMap(meshSettings.numberVerticesPerLine, meshSettings.numberVerticesPerLine, heightMapSettings, mapRulesSettings, sampleCenter, chunkBorderInfo) : 
             HeightMapGenerator.GenerateOcean(meshSettings.numberVerticesPerLine, meshSettings.numberVerticesPerLine), OnHeightMapReceived);
+    }
+
+    Vector4 getMapBounds()
+    {
+        int xRangeFromZero = Mathf.FloorToInt(mapRulesSettings.maxMapSizeInChunks.x / 2);
+        int yRangeFromZero = Mathf.FloorToInt(mapRulesSettings.maxMapSizeInChunks.y / 2);
+
+        return new Vector4(-xRangeFromZero, xRangeFromZero, -yRangeFromZero, yRangeFromZero);
     }
 
     bool isWithinMapBounds()
@@ -87,12 +150,11 @@ public class TerrainChunk
 
         if (mapRulesSettings.useMaxMapSize)
         {
-            int xRangeFromZero = Mathf.FloorToInt(mapRulesSettings.maxMapSizeInChunks.x / 2);
-            int yRangeFromZero = Mathf.FloorToInt(mapRulesSettings.maxMapSizeInChunks.y / 2);
+            Vector4 mapBounds = getMapBounds();
 
-            if (coord.x < -xRangeFromZero || coord.x > xRangeFromZero)
+            if (coord.x < mapBounds.x || coord.x > mapBounds.y)
                 isInXRange = false;
-            if (coord.y < -yRangeFromZero || coord.y > yRangeFromZero)
+            if (coord.y < mapBounds.z || coord.y > mapBounds.w)
                 isInYRange = false;
         }
 
@@ -224,5 +286,20 @@ class LODMesh
     {
         hasRequestedMesh = true;
         ThreadedDataRequester.RequestData(() => MeshGenerator.GenerateTerrainMesh(heightMap.values, meshSettings, lod), OnMeshDataReceived);
+    }
+}
+
+public struct ChunkBorderInfo
+{
+    public readonly bool isCorner;
+    public readonly FalloffGenerator.Corner corner;
+    public readonly bool isEdge;
+    public readonly FalloffGenerator.Edge edge;
+
+    public ChunkBorderInfo(bool isCorner, FalloffGenerator.Corner corner, bool isEdge, FalloffGenerator.Edge edge) {
+        this.isCorner = isCorner;
+        this.corner = corner;
+        this.isEdge = isEdge;
+        this.edge = edge;
     }
 }
