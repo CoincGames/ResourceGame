@@ -6,11 +6,11 @@ public class HealthSpawner : MonoBehaviour
 {
     [SerializeField]
     [Tooltip("The type of object to spawn at this node.")]
-    private GameObject toSpawn;
+    private GameObject toSpawn = null;
 
     [SerializeField]
     [Tooltip("The time inbetween each spawn in seconds.")]
-    private float spawnRateInSeconds;
+    private float spawnRateInSeconds = 0;
 
     [Tooltip("Keeps track of if the node has a currently spawned entity on it.")]
     public bool isSpawned;

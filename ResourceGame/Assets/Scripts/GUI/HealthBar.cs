@@ -5,11 +5,11 @@ public class HealthBar : MonoBehaviour
 {
     [SerializeField]
     [Tooltip("The slider fill bar to appear as the health bar.")]
-    private Slider healthFill;
+    private Slider healthFill = null;
 
     [SerializeField]
     [Tooltip("The text component of the health bar that displays the current health over the max health.")]
-    private Text healthText;
+    private Text healthText = null;
 
     public void setMaxHealth(float maxHealth)
     {

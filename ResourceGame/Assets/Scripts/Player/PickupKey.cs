@@ -5,15 +5,15 @@ public class PickupKey : MonoBehaviour
 {
     [SerializeField]
     [Tooltip("The camera that the player view is projected from.")]
-    private Camera viewFromCamera;
+    private Camera viewFromCamera = null;
 
     [SerializeField]
     [Tooltip("The pickup text view to display when looking at a pickupable object.")]
-    private Text pickupText;
+    private Text pickupText = null;
 
     [SerializeField]
     [Tooltip("The slide view component that owns the slide animation script.")]
-    private PickupSlideView pickupSlideView;
+    private PickupSlideView pickupSlideView = null;
 
     private Resource wantToSelect;
 

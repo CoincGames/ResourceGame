@@ -5,11 +5,11 @@ public class XPBar : MonoBehaviour
 {
     [SerializeField]
     [Tooltip("The slider fill bar to appear as the XP bar.")]
-    private Slider xpFill;
+    private Slider xpFill = null;
 
     [SerializeField]
     [Tooltip("The text component of the XP bar that displays the current XP over the next level's needed XP.")]
-    private Text xpText;
+    private Text xpText = null;
 
     public void setMaxXP(float maxXP)
     {

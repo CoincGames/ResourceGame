@@ -14,7 +14,7 @@ public class PlayerHealth : MonoBehaviour
 
     [SerializeField]
     [Tooltip("The health bar component of the player's UI.")]
-    private HealthBar healthBar;
+    private HealthBar healthBar = null;
 
     private void Update()
     {

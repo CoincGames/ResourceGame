@@ -8,11 +8,11 @@ public class PlayerInventory : MonoBehaviour
 
     [SerializeField]
     [Tooltip("The menu to close on the inventory press key.")]
-    private GameObject inventoryMenu;
+    private GameObject inventoryMenu = null;
 
     [SerializeField]
     [Tooltip("The crosshair view to open when the menu gets closed.")]
-    private GameObject crosshair;
+    private GameObject crosshair = null;
 
     public Dictionary<Resource.ResourceType, int> invMap = new Dictionary<Resource.ResourceType, int>();
 

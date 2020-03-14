@@ -6,7 +6,7 @@ public class FPSMouseMove : MonoBehaviour
 {
     [SerializeField]
     [Tooltip("The player body to rotate as movement happens.")]
-    private Transform playerBody;
+    private Transform playerBody = null;
 
     [SerializeField]
     [Tooltip("The mouse sensitivity.")]

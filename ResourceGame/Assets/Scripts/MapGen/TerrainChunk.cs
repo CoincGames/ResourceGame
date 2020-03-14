@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class TerrainChunk
 {
@@ -29,9 +30,15 @@ public class TerrainChunk
     MeshSettings meshSettings;
     MapRulesSettings mapRulesSettings;
 
+    // TODO TEMP
+    ResourcePool resourcePool;
+
     Transform viewer;
 
-    public TerrainChunk(Vector2 coord, HeightMapSettings heightMapSettings, MeshSettings meshSettings, MapRulesSettings mapRulesSettings, LODInfo[] detailLevels, int colliderLODIndex, Transform parent, Transform viewer, Material material)
+    bool hasResources;
+    List<GameObject> resourceNodeList = new List<GameObject>();
+
+    public TerrainChunk(Vector2 coord, HeightMapSettings heightMapSettings, MeshSettings meshSettings, MapRulesSettings mapRulesSettings, LODInfo[] detailLevels, int colliderLODIndex, Transform parent, Transform viewer, Material material, ResourcePool resourcePool)
     {
         this.coord = coord;
         this.detailLevels = detailLevels;
@@ -40,6 +47,8 @@ public class TerrainChunk
         this.heightMapSettings = heightMapSettings;
         this.meshSettings = meshSettings;
         this.mapRulesSettings = mapRulesSettings;
+
+        this.resourcePool = resourcePool;
 
         this.viewer = viewer;
 
@@ -64,6 +73,7 @@ public class TerrainChunk
         {
             lodMeshes[i] = new LODMesh(detailLevels[i].lod);
             lodMeshes[i].updateCallback += UpdateTerrainChunk;
+            lodMeshes[i].updateCallback += GenerateResourceNodes;
             if (i == colliderLODIndex)
             {
                 lodMeshes[i].updateCallback += UpdateCollisionMesh;
@@ -74,6 +84,15 @@ public class TerrainChunk
     }
 
     public void Load()
+    {
+        ThreadedDataRequester.RequestData(() => (isWithinMapBounds()) ? 
+            HeightMapGenerator.GenerateHeightMap(meshSettings.numberVerticesPerLine, meshSettings.numberVerticesPerLine, heightMapSettings, mapRulesSettings, sampleCenter, GetChunkBorderInfo()) : 
+            HeightMapGenerator.GenerateOcean(meshSettings.numberVerticesPerLine, meshSettings.numberVerticesPerLine), 
+            OnHeightMapReceived
+        );
+    }
+
+    ChunkBorderInfo GetChunkBorderInfo()
     {
         bool isCorner = false;
         FalloffGenerator.Corner corner = FalloffGenerator.Corner.TOPLEFT;
@@ -128,11 +147,7 @@ public class TerrainChunk
             edge = FalloffGenerator.Edge.LEFT;
         }
 
-        ChunkBorderInfo chunkBorderInfo = new ChunkBorderInfo(isCorner, corner, isEdge, edge);
-
-        ThreadedDataRequester.RequestData(() => (isWithinMapBounds()) ? 
-            HeightMapGenerator.GenerateHeightMap(meshSettings.numberVerticesPerLine, meshSettings.numberVerticesPerLine, heightMapSettings, mapRulesSettings, sampleCenter, chunkBorderInfo) : 
-            HeightMapGenerator.GenerateOcean(meshSettings.numberVerticesPerLine, meshSettings.numberVerticesPerLine), OnHeightMapReceived);
+        return new ChunkBorderInfo(isCorner, corner, isEdge, edge);
     }
 
     Vector4 getMapBounds()
@@ -222,6 +237,48 @@ public class TerrainChunk
         {
             SetVisible(visible);
             onVisibilityChanged?.Invoke(this, visible);
+        }
+    }
+
+    void GenerateResourceNodes()
+    {
+        if (hasResources)
+            return;
+
+        hasResources = true;
+
+        Vector3[] vertices = meshFilter.mesh.vertices;
+        int chunkSize = meshSettings.numberVerticesPerLine - 2;
+
+        List<Vector2> points = PoissonDiscSampling.GeneratePoints(5.5f, new Vector2(chunkSize, chunkSize), Vector2.zero, 3);
+
+        foreach (Vector2 point in points)
+        {
+            GameObject go = new GameObject("Tree");
+            GameObject treeAsset = resourcePool.tree;
+
+            MeshRenderer renderer = go.AddComponent<MeshRenderer>();
+            renderer.materials = treeAsset.GetComponent<MeshRenderer>().sharedMaterials;
+
+            MeshFilter treeFilter = go.AddComponent<MeshFilter>();
+            treeFilter.mesh = treeAsset.GetComponent<MeshFilter>().sharedMesh;
+
+            go.AddComponent<MeshCollider>();
+
+            go.transform.parent = meshObject.transform;
+            go.transform.position = new Vector3(point.x, 50, point.y);
+            go.transform.rotation = treeAsset.transform.rotation;
+            go.transform.localScale = treeAsset.transform.localScale;
+        }
+
+
+        for (int i = 0; i < chunkSize; i++)
+        {
+            for (int j = 0; j < chunkSize; j++)
+            {
+                int index = i * chunkSize + j;
+                // Debug.Log("Index (" + index + ") = " + vertices[index]); // TODO Figure out what to do with these vertex cords... they are in world space... grab a distance around them and see if slope (in all 8 directions) is crazy? probably.
+            }
         }
     }
 

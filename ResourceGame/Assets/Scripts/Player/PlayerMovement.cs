@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
     [Tooltip("The character controller that is in charge of the player.")]
-    private CharacterController controller;
+    private CharacterController controller = null;
 
     [Header("Properties")]
 
@@ -24,13 +24,13 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     [Tooltip("The jump height of the player.")]
-    private float jumpHeight;
+    private float jumpHeight = 0;
     
     [Header("Player On Ground Tools")]
 
     [SerializeField]
     [Tooltip("The game object that will check if the player is standing on ground.\n\nNOTE: Should be on the bottom of the player model.")]
-    private Transform groundChecker;
+    private Transform groundChecker = null;
 
     [SerializeField]
     [Tooltip("The distance below the player that the hit detection checks.\n\nNOTE: This is a radius of a generated sphere.")]

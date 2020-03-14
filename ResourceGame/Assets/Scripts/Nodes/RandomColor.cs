@@ -4,7 +4,7 @@ public class RandomColor : MonoBehaviour
 {
     [SerializeField]
     [Tooltip("The renderer that owns this script.")]
-    private Renderer meshRenderer;
+    private Renderer meshRenderer = null;
 
     // Start is called before the first frame update
     void Start()

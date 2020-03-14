@@ -4,7 +4,7 @@ public class PickupHealth : MonoBehaviour
 {
     [SerializeField]
     [Tooltip("The Game Object which owns this script.")]
-    private GameObject owner;
+    private GameObject owner = null;
 
     [SerializeField]
     [Tooltip("The amount of health to give to a player.")]

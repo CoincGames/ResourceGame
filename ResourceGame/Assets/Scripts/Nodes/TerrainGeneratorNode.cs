@@ -4,7 +4,7 @@ public class TerrainGeneratorNode : MonoBehaviour
 {
     [SerializeField]
     [Tooltip("The type of terrain node to spawn.")]
-    private GameObject terrainTile;
+    private GameObject terrainTile = null;
 
     [SerializeField]
     [Tooltip("The map size to generate.")]
@@ -17,7 +17,7 @@ public class TerrainGeneratorNode : MonoBehaviour
 
     [SerializeField]
     [Tooltip("The possible prefab resources to spawn.\n\nNOTE: Should be of type pickup")]
-    private GameObject[] possibleSpawns;
+    private GameObject[] possibleSpawns = null;
 
     // Start is called before the first frame update
     void Start()

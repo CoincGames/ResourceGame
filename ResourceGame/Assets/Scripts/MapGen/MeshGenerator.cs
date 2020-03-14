@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public static class MeshGenerator
 {
@@ -245,6 +243,7 @@ public class MeshData
     public Mesh CreateMesh()
     {
         Mesh mesh = new Mesh();
+
         mesh.vertices = vertices;
         mesh.triangles = triangles;
         mesh.uv = uvs;
@@ -252,6 +251,7 @@ public class MeshData
             mesh.RecalculateNormals();
         else
             mesh.normals = bakedNormals;
+
         return mesh;
     }
 }
