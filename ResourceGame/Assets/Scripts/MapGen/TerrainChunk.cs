@@ -248,9 +248,16 @@ public class TerrainChunk
         hasResources = true;
 
         Vector3[] vertices = meshFilter.mesh.vertices;
-        int chunkSize = meshSettings.numberVerticesPerLine - 2;
+        Vector3 topLeftVertex = vertices[0];
+        Vector3 bottomRightVertex = vertices[vertices.Length - 1];
 
-        List<Vector2> points = PoissonDiscSampling.GeneratePoints(5.5f, new Vector2(chunkSize, chunkSize), Vector2.zero, 3);
+        int chunkSizeX = (int) Mathf.Abs(topLeftVertex.x - bottomRightVertex.x);
+        int chunkSizeZ = (int) Mathf.Abs(topLeftVertex.z - bottomRightVertex.z);
+
+        Vector2 sampleSize = new Vector2(chunkSizeX, chunkSizeZ);
+        Vector2 sampleCenter = new Vector2(bottomRightVertex.x - meshObject.transform.position.x, topLeftVertex.z - meshObject.transform.position.z);
+
+        List<Vector2> points = PoissonDiscSampling.GeneratePoints(5.5f, sampleSize, sampleCenter, 3);
 
         foreach (Vector2 point in points)
         {
@@ -272,14 +279,14 @@ public class TerrainChunk
         }
 
 
-        for (int i = 0; i < chunkSize; i++)
+        /*for (int i = 0; i < chunkSize; i++)
         {
             for (int j = 0; j < chunkSize; j++)
             {
                 int index = i * chunkSize + j;
                 // Debug.Log("Index (" + index + ") = " + vertices[index]); // TODO Figure out what to do with these vertex cords... they are in world space... grab a distance around them and see if slope (in all 8 directions) is crazy? probably.
             }
-        }
+        } */
     }
 
     public void UpdateCollisionMesh()

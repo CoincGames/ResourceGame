@@ -43,6 +43,11 @@ public static class PoissonDiscSampling
             }
         }
 
+        for (int i = 0; i < points.Count; i++)
+        {
+            points[i] -= sampleCenter;
+        }
+
         return points;
     }
 
