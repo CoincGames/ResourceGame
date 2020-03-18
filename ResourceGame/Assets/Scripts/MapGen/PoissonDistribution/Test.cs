@@ -13,7 +13,7 @@ public class Test : MonoBehaviour
 
     private void OnValidate()
     {
-        points = PoissonDiscSampling.GeneratePoints(radius, regionSize, Vector2.zero, rejectionSamples);
+        points = PoissonDiscSampling.GeneratePoints(radius, regionSize, Vector2.zero, rejectionSamples, 0);
     }
 
     private void OnDrawGizmos()

@@ -4,8 +4,10 @@ using UnityEngine;
 
 public static class PoissonDiscSampling
 {
-    public static List<Vector2> GeneratePoints(float radius, Vector2 sampleRegionSize, Vector2 sampleCenter, int numSamplesBeforeRejection = 30)
+    public static List<Vector2> GeneratePoints(float radius, Vector2 sampleRegionSize, Vector2 sampleCenter, int numSamplesBeforeRejection, int seed)
     {
+        System.Random random = new System.Random(seed);
+
         float cellSize = radius / Mathf.Sqrt(2);
 
         int gridX = Mathf.CeilToInt(sampleRegionSize.x / cellSize);
@@ -16,17 +18,25 @@ public static class PoissonDiscSampling
         List<Vector2> spawnPoints = new List<Vector2>();
 
         spawnPoints.Add(sampleRegionSize / 2);
+
+        int iterations = 0;
         while (spawnPoints.Count > 0)
         {
-            int spawnIndex = Random.Range(0, spawnPoints.Count);
+            iterations++;
+            //Debug.LogError(spawnPoints.Count);
+
+            int spawnIndex = random.Next(0, spawnPoints.Count);
             Vector2 spawnCenter = spawnPoints[spawnIndex];
             bool candidateAccepted = false;
 
-            for (int i = 0; i < numSamplesBeforeRejection; i++)
+            float percent = 1;// spawnPoints.Count / startSize;
+            int sampleRejectionCount = (int) Mathf.Lerp(1, numSamplesBeforeRejection, percent);
+
+            for (int i = 0; i < sampleRejectionCount; i++)
             {
-                float angle = Random.value * Mathf.PI * 2;
+                float angle = (float) random.NextDouble() * Mathf.PI * 2;
                 Vector2 dir = new Vector2(Mathf.Sin(angle), Mathf.Cos(angle));
-                Vector2 candidate = spawnCenter + dir * Random.Range(radius, 2 * radius);
+                Vector2 candidate = spawnCenter + dir * ((float)(radius + (random.NextDouble() * radius)));
                 if (isValid(candidate, sampleRegionSize, cellSize, radius, points, grid))
                 {
                     points.Add(candidate);
@@ -42,6 +52,8 @@ public static class PoissonDiscSampling
                 spawnPoints.RemoveAt(spawnIndex);
             }
         }
+
+        Debug.LogError(iterations);
 
         for (int i = 0; i < points.Count; i++)
         {

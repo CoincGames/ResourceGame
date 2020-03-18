@@ -257,25 +257,30 @@ public class TerrainChunk
         Vector2 sampleSize = new Vector2(chunkSizeX, chunkSizeZ);
         Vector2 sampleCenter = new Vector2(bottomRightVertex.x - meshObject.transform.position.x, topLeftVertex.z - meshObject.transform.position.z);
 
-        List<Vector2> points = PoissonDiscSampling.GeneratePoints(5.5f, sampleSize, sampleCenter, 3);
+        List<Vector2> points = PoissonDiscSampling.GeneratePoints(5.5f, sampleSize, sampleCenter, 2, heightMapSettings.noiseSettings.seed);
 
         foreach (Vector2 point in points)
         {
-            GameObject go = new GameObject("Tree");
-            GameObject treeAsset = resourcePool.tree;
+            Vector3 location = new Vector3(point.x, 50, point.y);
 
-            MeshRenderer renderer = go.AddComponent<MeshRenderer>();
-            renderer.materials = treeAsset.GetComponent<MeshRenderer>().sharedMaterials;
+            GameObject tree = GameObject.Instantiate(resourcePool.tree, location, resourcePool.tree.transform.rotation, meshObject.transform);
 
-            MeshFilter treeFilter = go.AddComponent<MeshFilter>();
-            treeFilter.mesh = treeAsset.GetComponent<MeshFilter>().sharedMesh;
+            //tree.transform.parent = meshObject.transform;
 
-            go.AddComponent<MeshCollider>();
+            //GameObject go = new GameObject("Tree");
+            //GameObject treeAsset = resourcePool.tree;
 
-            go.transform.parent = meshObject.transform;
-            go.transform.position = new Vector3(point.x, 50, point.y);
-            go.transform.rotation = treeAsset.transform.rotation;
-            go.transform.localScale = treeAsset.transform.localScale;
+            //MeshRenderer renderer = go.AddComponent<MeshRenderer>();
+            //renderer.materials = treeAsset.GetComponent<MeshRenderer>().sharedMaterials;
+
+            //MeshFilter treeFilter = go.AddComponent<MeshFilter>();
+            //treeFilter.mesh = treeAsset.GetComponent<MeshFilter>().sharedMesh;
+
+            //go.AddComponent<MeshCollider>();
+
+            //go.transform.position = new Vector3(point.x, 50, point.y);
+            //go.transform.rotation = treeAsset.transform.rotation;
+            //go.transform.localScale = treeAsset.transform.localScale;
         }
 
 
