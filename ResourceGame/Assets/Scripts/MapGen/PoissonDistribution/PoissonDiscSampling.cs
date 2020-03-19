@@ -15,24 +15,18 @@ public static class PoissonDiscSampling
         int[,] grid = new int[gridX, gridY];
 
         List<Vector2> points = new List<Vector2>();
-        List<Vector2> spawnPoints = new List<Vector2>();
+        List<Vector2> spawnPoints = new List<Vector2>
+        {
+            sampleRegionSize / 2
+        };
 
-        spawnPoints.Add(sampleRegionSize / 2);
-
-        int iterations = 0;
         while (spawnPoints.Count > 0)
         {
-            iterations++;
-            //Debug.LogError(spawnPoints.Count);
-
             int spawnIndex = random.Next(0, spawnPoints.Count);
             Vector2 spawnCenter = spawnPoints[spawnIndex];
             bool candidateAccepted = false;
 
-            float percent = 1;// spawnPoints.Count / startSize;
-            int sampleRejectionCount = (int) Mathf.Lerp(1, numSamplesBeforeRejection, percent);
-
-            for (int i = 0; i < sampleRejectionCount; i++)
+            for (int i = 0; i < numSamplesBeforeRejection; i++)
             {
                 float angle = (float) random.NextDouble() * Mathf.PI * 2;
                 Vector2 dir = new Vector2(Mathf.Sin(angle), Mathf.Cos(angle));
@@ -52,8 +46,6 @@ public static class PoissonDiscSampling
                 spawnPoints.RemoveAt(spawnIndex);
             }
         }
-
-        Debug.LogError(iterations);
 
         for (int i = 0; i < points.Count; i++)
         {

@@ -245,44 +245,11 @@ public class TerrainChunk
         if (hasResources)
             return;
 
-        hasResources = true;
-
         Vector3[] vertices = meshFilter.mesh.vertices;
-        Vector3 topLeftVertex = vertices[0];
-        Vector3 bottomRightVertex = vertices[vertices.Length - 1];
+        Vector3 gameObjectPosition = meshObject.transform.position;
+        ThreadedDataRequester.RequestData(() => ResourceGeneration.GenerateResourcePoints(20f, vertices, meshObject, gameObjectPosition, heightMapSettings), PlaceTrees);
 
-        int chunkSizeX = (int) Mathf.Abs(topLeftVertex.x - bottomRightVertex.x);
-        int chunkSizeZ = (int) Mathf.Abs(topLeftVertex.z - bottomRightVertex.z);
-
-        Vector2 sampleSize = new Vector2(chunkSizeX, chunkSizeZ);
-        Vector2 sampleCenter = new Vector2(bottomRightVertex.x - meshObject.transform.position.x, topLeftVertex.z - meshObject.transform.position.z);
-
-        List<Vector2> points = PoissonDiscSampling.GeneratePoints(5.5f, sampleSize, sampleCenter, 2, heightMapSettings.noiseSettings.seed);
-
-        foreach (Vector2 point in points)
-        {
-            Vector3 location = new Vector3(point.x, 50, point.y);
-
-            GameObject tree = GameObject.Instantiate(resourcePool.tree, location, resourcePool.tree.transform.rotation, meshObject.transform);
-
-            //tree.transform.parent = meshObject.transform;
-
-            //GameObject go = new GameObject("Tree");
-            //GameObject treeAsset = resourcePool.tree;
-
-            //MeshRenderer renderer = go.AddComponent<MeshRenderer>();
-            //renderer.materials = treeAsset.GetComponent<MeshRenderer>().sharedMaterials;
-
-            //MeshFilter treeFilter = go.AddComponent<MeshFilter>();
-            //treeFilter.mesh = treeAsset.GetComponent<MeshFilter>().sharedMesh;
-
-            //go.AddComponent<MeshCollider>();
-
-            //go.transform.position = new Vector3(point.x, 50, point.y);
-            //go.transform.rotation = treeAsset.transform.rotation;
-            //go.transform.localScale = treeAsset.transform.localScale;
-        }
-
+        hasResources = true;
 
         /*for (int i = 0; i < chunkSize; i++)
         {
@@ -292,6 +259,14 @@ public class TerrainChunk
                 // Debug.Log("Index (" + index + ") = " + vertices[index]); // TODO Figure out what to do with these vertex cords... they are in world space... grab a distance around them and see if slope (in all 8 directions) is crazy? probably.
             }
         } */
+    }
+
+    void PlaceTrees(object points)
+    {
+        foreach (Vector3 location in (List<Vector3>)points)
+        {
+            GameObject tree = Object.Instantiate(resourcePool.tree, location, resourcePool.tree.transform.rotation, meshObject.transform) as GameObject;
+        }
     }
 
     public void UpdateCollisionMesh()
