@@ -21,25 +21,81 @@ public static class ResourceGeneration
         int verticesPerSide = (int)Mathf.Sqrt(vertices.Length);
         VertexInfo[,] vertexInfos = new VertexInfo[verticesPerSide, verticesPerSide];
 
-
-        int endIndex = 0;
-        for (int x = 0; x < verticesPerSide; x++)
+        for (int y = 0; y < verticesPerSide; y++)
         {
-            for (int y = 0; y < verticesPerSide; y++)
+            for (int x = 0; x < verticesPerSide; x++)
             {
-                endIndex = (x * verticesPerSide) + y;
+                int vertexIndex = (y * verticesPerSide) + x;
+
+                Vector3 center, up, left, right, down;
+
+                center = vertices[vertexIndex];
+
+                if (y == 0)
+                {
+                    up = center;
+                } 
+                else
+                {
+                    up = vertices[vertexIndex - verticesPerSide];
+                }
+
+                if (y == verticesPerSide - 1)
+                {
+                    down = center;
+                }
+                else
+                {
+                    down = vertices[vertexIndex + verticesPerSide];
+                }
+
+                if (x == 0)
+                {
+                    left = center;
+                } 
+                else
+                {
+                    left = vertices[vertexIndex - 1];
+                }
+
+                if (x == verticesPerSide - 1)
+                {
+                    right = center;
+                } 
+                else
+                {
+                    right = vertices[vertexIndex + 1];
+                }
+
+                vertexInfos[x, y] = new VertexInfo(center, up, left, right, down);
             }
         }
 
-        Debug.LogError(endIndex);
-
-        // endregion NEW
-
         List<Vector3> v3points = new List<Vector3>();
 
-        // Add a y component for vertical based off ^^ vertices
+        v2points.ForEach(vector2 =>
+        {
+            //Debug.Log(topLeftVertex + "->" + bottomRightVertex + " and " + vector2);
+            float xPercentInChunk = Mathf.InverseLerp(topLeftVertex.x, bottomRightVertex.x, vector2.x - gameObjectLoc.x);
+            float yPercentInChunk = Mathf.InverseLerp(topLeftVertex.z, bottomRightVertex.z, vector2.y - gameObjectLoc.z);
+            //Debug.Log("xPercent: " + xPercentInChunk + " | " + "yPercent: " + yPercentInChunk);
 
-        v2points.ForEach(vector2 => v3points.Add(new Vector3(vector2.x, 150, vector2.y)));
+            int xIndex = (int) Mathf.Lerp(0, verticesPerSide, xPercentInChunk);
+            int yIndex = (int) Mathf.Lerp(0, verticesPerSide, yPercentInChunk);
+
+            // Check slope FIRST
+            //Debug.Log("xIndex: " + xIndex + " | " + "yIndex: " + yIndex);
+
+            float slope = vertexInfos[xIndex, yIndex].GetLargestSlope();
+            if (slope < .1 || slope > .35)
+                return;
+
+            float height = vertexInfos[xIndex, yIndex].centerPoint.y + 2.75f;
+
+            v3points.Add(new Vector3(vector2.x, height, vector2.y));
+        });
+
+        // endregion NEW
 
         return v3points;
     }
@@ -49,7 +105,7 @@ class Edge
 {
     Vector3 start;
     Vector3 end;
-    float slope;
+    public float slope;
 
     public Edge(Vector3 start, Vector3 end)
     {
@@ -79,7 +135,35 @@ class Edge
 
 class VertexInfo
 {
-    Edge upEdge, leftEdge, rightEdge, downEdge;
+    public Vector3 centerPoint;
+    public Edge upEdge, leftEdge, rightEdge, downEdge;
 
+    public VertexInfo(Vector3 center, Vector3 up, Vector3 left, Vector3 right, Vector3 down)
+    {
+        centerPoint = center;
 
+        upEdge = new Edge(center, up);
+        leftEdge = new Edge(center, left);
+        rightEdge = new Edge(center, right);
+        downEdge = new Edge(center, down);
+    }
+
+    public float GetLargestSlope()
+    {
+        float slope = float.MinValue;
+
+        if (upEdge.slope > slope)
+            slope = upEdge.slope;
+
+        if (leftEdge.slope > slope)
+            slope = leftEdge.slope;
+
+        if (rightEdge.slope > slope)
+            slope = rightEdge.slope;
+
+        if (downEdge.slope > slope)
+            slope = downEdge.slope;
+
+        return slope;
+    }
 }
