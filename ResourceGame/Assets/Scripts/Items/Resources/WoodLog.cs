@@ -4,6 +4,6 @@
     {
         name = "Wood Log";
         xp = 5.5f;
-        type = ResourceType.WoodLog;
+        type = ItemType.WoodLog;
     }
 }

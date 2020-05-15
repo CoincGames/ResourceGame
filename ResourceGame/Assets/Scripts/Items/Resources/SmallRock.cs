@@ -4,6 +4,6 @@
     {
         name = "Small Rock";
         xp = 1.5f;
-        type = ResourceType.SmallRock;
+        type = ItemType.SmallRock;
     }
 }

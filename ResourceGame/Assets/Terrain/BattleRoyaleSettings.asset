@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: BattleRoyaleSettings
   m_EditorClassIdentifier: 
   autoUpdate: 1
-  useMaxMapSize: 1
+  useMaxMapSize: 0
   maxMapSizeInChunks: {x: 5, y: 5}
-  useFalloff: 1
+  useFalloff: 0
   slope: 2.5
   shift: 7

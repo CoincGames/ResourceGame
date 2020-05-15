@@ -7,7 +7,7 @@ public class PickupSlideView : MonoBehaviour
     public Text slideText;
     public Animation slideAnimation;
 
-    private Resource.ResourceType lastType;
+    private Item.ItemType lastType;
     private bool recentPickup = false;
     private int count = 0;
 
