@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class PlayerInventory : MonoBehaviour
     private GameObject crosshair = null;
 
     public Dictionary<Item.ItemType, int> invMap = new Dictionary<Item.ItemType, int>();
+    public Item.ItemType itemInHand = Item.ItemType.Glock;
+
+    public Text inHandDisplay;
 
     private void Update()
     {
@@ -32,5 +36,7 @@ public class PlayerInventory : MonoBehaviour
                 crosshair.SetActive(true);
             }
         }
+
+        inHandDisplay.text = itemInHand.ToString();
     }
 }
