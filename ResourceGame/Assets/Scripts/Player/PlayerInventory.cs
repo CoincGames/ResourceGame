@@ -16,8 +16,11 @@ public class PlayerInventory : MonoBehaviour
     private GameObject crosshair = null;
 
     public Dictionary<Item.ItemType, int> invMap = new Dictionary<Item.ItemType, int>();
+
+    // TEMP
     public Item.ItemType itemInHand = Item.ItemType.Glock;
 
+    // TEMP
     public Text inHandDisplay;
 
     private void Update()
