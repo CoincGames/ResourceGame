@@ -44,6 +44,9 @@ public abstract class Item : MonoBehaviour
         // Resources
         SmallRock,
         WoodStick,
-        WoodLog
+        WoodLog,
+
+        // Other
+        Null
     }
 }

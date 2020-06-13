@@ -18,7 +18,7 @@ public class PlayerInventory : MonoBehaviour
     public Dictionary<Item.ItemType, int> invMap = new Dictionary<Item.ItemType, int>();
 
     // TEMP
-    public Item.ItemType itemInHand = Item.ItemType.Glock;
+    public Item.ItemType itemInHand = Item.ItemType.Null;
 
     // TEMP
     public Text inHandDisplay;
