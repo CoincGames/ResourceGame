@@ -4,7 +4,8 @@ public class Resource : Item
 {
     public Resource()
     {
-        maxStackSize = 50;
+        amount = 1;
+        maxStackSize = 100;
         dropped = false;
     }
 }

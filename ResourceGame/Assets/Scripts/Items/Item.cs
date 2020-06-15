@@ -3,6 +3,7 @@
 public abstract class Item : MonoBehaviour
 {
     public new string name { get; set; }
+    public int amount { get; set; }
     public int maxStackSize { get; set; }
     public float xp { get; set; }
     public bool dropped { get; set; }

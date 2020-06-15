@@ -60,7 +60,7 @@ public class PickupKey : MonoBehaviour
         {
             if (wantToSelect != null)
             {
-                pickupSlideView.displayWithResource(wantToSelect);
+                pickupSlideView.display(new ResourceNotif(wantToSelect.type, wantToSelect.amount));
                 wantToSelect.PickUp(gameObject.GetComponentInParent<PlayerExperience>(), gameObject.GetComponentInParent<PlayerInventory>());
             }
         }

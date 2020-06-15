@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class EquippableItem : DurabilityItem
+public abstract class EquippableItem : DurabilityItem
 {
     // Start is called before the first frame update
     void Start()

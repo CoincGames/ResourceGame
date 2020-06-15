@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,36 +8,49 @@ public class PickupSlideView : MonoBehaviour
     public Text slideText;
     public Animation slideAnimation;
 
-    private Item.ItemType lastType;
-    private bool recentPickup = false;
-    private int count = 0;
+    private Queue<Notification> hudQueue = new Queue<Notification>();
 
-    public void displayWithResource(Resource rss)
+    public void display(Notification notif)
     {
         if (gameObject.activeSelf)
         {
-            if (lastType == rss.type)
+            // A notif is already occurring
+
+            if (notif.GetType() == typeof(TextNotif))
             {
-                recentPickup = true;
-                count++;
-                updateTextDisplay(rss);
-            } else
+                hudQueue.Enqueue(notif);
+                return;
+            }
+
+            if (notif.GetType() == typeof(ResourceNotif))
             {
-                // put in queue and display after
+                ResourceNotif rssNotif = (ResourceNotif) notif;
+                foreach (Notification not in hudQueue)
+                {
+                    if (not.GetType() == typeof(ResourceNotif))
+                    {
+                        ((ResourceNotif)not).count++;
+                        return;
+                    }
+                }
+
+                // If we got here, this resource entry type does not exist...
+                hudQueue.Enqueue(notif);
+
+                return;
             }
         } else
         {
+            // No notif is alive so display this one!
+
             gameObject.SetActive(true);
-            recentPickup = true;
-            lastType = rss.type;
-            count++;
-            updateTextDisplay(rss);
+            updateTextDisplay(notif.getMessage());
         }
     }
 
-    private void updateTextDisplay(Resource rss)
+    private void updateTextDisplay(string message)
     {
-        slideText.text = "+ " + rss.name + " x" + count;
+        slideText.text = message;
     }
 
     public void pause()
@@ -50,9 +64,10 @@ public class PickupSlideView : MonoBehaviour
 
     private IEnumerator waitToClose()
     {
-        while (recentPickup)
+        bool waiting = true;
+        while (waiting)
         {
-            recentPickup = false;
+            waiting = false;
             yield return new WaitForSeconds(2f);
         }
         finishClosing();
@@ -66,10 +81,14 @@ public class PickupSlideView : MonoBehaviour
         }
     }
 
-    // Called at the end of the animation
+    // Called at the end of the animation by the animation frame
     public void resetView()
     {
-        count = 0;
         gameObject.SetActive(false);
+
+        if (hudQueue.Count > 0)
+        {
+            display(hudQueue.Dequeue());
+        }
     }
 }
