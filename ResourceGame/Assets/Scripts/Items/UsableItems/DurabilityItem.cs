@@ -7,6 +7,7 @@ public class DurabilityItem : Item
 
     public virtual void Break()
     {
+        // Show message to screen showing that it broke
         Destroy(this);
     }
 }
