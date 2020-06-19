@@ -15,7 +15,7 @@ public class PickupKey : MonoBehaviour
     [Tooltip("The slide view component that owns the slide animation script.")]
     private PickupSlideView pickupSlideView = null;
 
-    private Resource wantToSelect;
+    private ItemStack wantToSelect;
 
     // Update is called once per frame
     void Update()

@@ -15,7 +15,9 @@ public class SpawnItemTesting : MonoBehaviour
     {
         if (Input.GetKeyDown("`"))
         {
-            Instantiate(resourceToSpawn, player.transform.position, resourceToSpawn.transform.rotation);
+            GameObject createdWood = Instantiate(resourceToSpawn, player.transform.position, resourceToSpawn.transform.rotation) as GameObject;
+            ItemStack itemStack = createdWood.GetComponent<ItemStack>();
+            itemStack.amount = 16;
         }
     }
 }

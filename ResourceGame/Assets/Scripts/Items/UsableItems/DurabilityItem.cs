@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public abstract class DurabilityItem : Item
+public abstract class DurabilityItem : ItemStack
 {
     public int maxDurability { get; set; }
     public int durability { get; set; }
@@ -9,9 +9,8 @@ public abstract class DurabilityItem : Item
     {
         // Show message to screen showing that it broke
         string breakMessage = "Your " + name + " has broke...";
-        // TODO
 
-        // Remove the object
+        // TODO Remove the object
         Destroy(this);
     }
 }

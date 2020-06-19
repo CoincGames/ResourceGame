@@ -25,11 +25,11 @@ public class PickupSlideView : MonoBehaviour
             if (notif.GetType() == typeof(ResourceNotif))
             {
                 ResourceNotif rssNotif = (ResourceNotif) notif;
-                foreach (Notification not in hudQueue)
+                foreach (Notification notification in hudQueue)
                 {
-                    if (not.GetType() == typeof(ResourceNotif))
+                    if (notification.GetType() == typeof(ResourceNotif))
                     {
-                        ((ResourceNotif)not).count++;
+                        ((ResourceNotif)notification).count += rssNotif.count;
                         return;
                     }
                 }

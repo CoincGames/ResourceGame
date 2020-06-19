@@ -15,10 +15,10 @@ public class PlayerInventory : MonoBehaviour
     [Tooltip("The crosshair view to open when the menu gets closed.")]
     private GameObject crosshair = null;
 
-    public Dictionary<Item.ItemType, int> invMap = new Dictionary<Item.ItemType, int>();
+    public Dictionary<ItemStack.ItemType, int> invMap = new Dictionary<ItemStack.ItemType, int>();
 
     // TEMP
-    public Item.ItemType itemInHand = Item.ItemType.Null;
+    public ItemStack.ItemType itemInHand = ItemStack.ItemType.Null;
 
     // TEMP
     public Text inHandDisplay;
