@@ -11,6 +11,7 @@ public abstract class DurabilityItem : ItemStack
         string breakMessage = "Your " + name + " has broke...";
 
         // TODO Remove the object
+        // This is something that is mostly in the player inventory, so check if destroying actually kills it
         Destroy(this);
     }
 }
