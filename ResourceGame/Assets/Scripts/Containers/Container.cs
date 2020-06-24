@@ -12,6 +12,11 @@ public class Container : IEnumerable<ItemStack>
         this.size = size;
     }
 
+    public void addItem(ItemStack item)
+    {
+        containedItems.Add(item);
+    }
+
     public int getSize()
     {
         return size;
