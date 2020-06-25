@@ -5,16 +5,19 @@ using UnityEngine;
 public class Container : IEnumerable<ItemStack>
 {
     private int size = 0;
-    private List<ItemStack> containedItems = new List<ItemStack>();
+    private Dictionary<int, ItemStack> inventoryMap = new Dictionary<int, ItemStack>();
 
     public Container(int size)
     {
         this.size = size;
     }
 
-    public void addItem(ItemStack item)
+    public bool TryAddItem(ItemStack item)
     {
-        containedItems.Add(item);
+        // TODO New code here
+        // Check max size
+        // containedItems.Add(item);
+        return true;
     }
 
     public int getSize()
@@ -24,17 +27,17 @@ public class Container : IEnumerable<ItemStack>
 
     public IEnumerator GetEnumerator()
     {
-        for (int index = 0; index < containedItems.Count; index++)
+        for (int index = 0; index < size; index++)
         {
-            yield return containedItems[index];
+            yield return inventoryMap[index];
         }
     }
 
     IEnumerator<ItemStack> IEnumerable<ItemStack>.GetEnumerator()
     {
-        for (int index = 0; index < containedItems.Count; index++)
+        for (int index = 0; index < size; index++)
         {
-            yield return containedItems[index];
+            yield return inventoryMap[index];
         }
     }
 }
