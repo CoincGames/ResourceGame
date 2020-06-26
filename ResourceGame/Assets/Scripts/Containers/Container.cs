@@ -12,14 +12,39 @@ public class Container : IEnumerable<ItemStack>
         this.maxSize = maxSize;
     }
 
-    public void TryAddItem(ItemStack item)
+    public bool TryAddItem(ItemStack item)
     {
-        if (inventoryMap.Count >= getMaxSize())
-            return; // TODO send a thing back, let them know inventory is full
+        if (!CanAddItem())
+            return false; // TODO send a thing back, let them know inventory is full
 
         inventoryMap.Add(inventoryMap.Count, item);
 
         refresh();
+        return true;
+    }
+
+    public bool CanAddItem()
+    {
+        // TODO more complex logic for itemstacking instead of creating a new inventory slot
+        return inventoryMap.Count >= getMaxSize();
+    }
+
+    public bool TryRemoveItem(ItemStack item)
+    {
+        int removedKey = -1;
+        foreach (int key in inventoryMap.Keys)
+        {
+            ItemStack foundItem;
+            inventoryMap.TryGetValue(key, out foundItem);
+            if (foundItem == item)
+                removedKey = key;
+        }
+
+        if (removedKey < 0)
+            return false;
+
+        inventoryMap.Remove(removedKey);
+        return true;
     }
 
     public void SwapSlots(int slotFrom, int slotTo)

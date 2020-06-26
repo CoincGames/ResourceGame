@@ -2,7 +2,7 @@
 
 public abstract class ItemStack : MonoBehaviour
 {
-    public string name { get; set; }
+    public new string name { get; set; }
     public int amount { get; set; }
     public int maxStackSize { get; set; }
     public float xp { get; set; }
