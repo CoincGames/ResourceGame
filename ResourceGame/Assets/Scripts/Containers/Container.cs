@@ -5,11 +5,18 @@ using UnityEngine;
 public class Container : IEnumerable<ItemStack>
 {
     private int maxSize = 0;
+    private Vector2 location = new Vector2(0, 0);
     private Dictionary<int, ItemStack> inventoryMap = new Dictionary<int, ItemStack>();
 
-    public Container(int maxSize)
+    public Container(int maxSize, Vector2 location)
     {
         this.maxSize = maxSize;
+        this.location = location;
+    }
+
+    public Vector2 GetLocation()
+    {
+        return this.location;
     }
 
     public bool TryAddItem(ItemStack item)
