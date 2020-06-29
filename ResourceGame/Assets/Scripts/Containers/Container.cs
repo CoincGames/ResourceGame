@@ -4,19 +4,37 @@ using UnityEngine;
 
 public class Container : IEnumerable<ItemStack>
 {
+    private bool isPlayer = false;
+    private GameObject player;
+    private Vector3 location = new Vector3(0,0,0);
+
     private int maxSize = 0;
-    private Vector2 location = new Vector2(0, 0);
     private Dictionary<int, ItemStack> inventoryMap = new Dictionary<int, ItemStack>();
 
-    public Container(int maxSize, Vector2 location)
+    public Container(int maxSize, bool isPlayer, GameObject player, Vector3 location)
+    {
+        this.maxSize = maxSize;
+        this.isPlayer = isPlayer;
+        this.player = player;
+        this.location = location;
+    }
+
+    public Container(int maxSize, bool isPlayer, GameObject player)
+    {
+        this.maxSize = maxSize;
+        this.isPlayer = isPlayer;
+        this.player = player;
+    }
+
+    public Container(int maxSize, Vector3 location)
     {
         this.maxSize = maxSize;
         this.location = location;
     }
 
-    public Vector2 GetLocation()
+    public Vector3 GetLocation()
     {
-        return this.location;
+        return isPlayer ? player.transform.position : location;
     }
 
     public bool TryAddItem(ItemStack item)

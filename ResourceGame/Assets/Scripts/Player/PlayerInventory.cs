@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public class PlayerInventory : MonoBehaviour
 {
+    [Tooltip("The player who owns this inventory (GAMEOBJECT)")]
+    public GameObject inventoryOwner;
+
     [Tooltip("The max items a player can carry at one time.")]
     public int maxInventorySpace;
 
@@ -23,21 +26,21 @@ public class PlayerInventory : MonoBehaviour
     // TEMP
     public Text inHandDisplay;
 
+    public Container inventory;
+
+    private void Start()
+    {
+        inventory = new Container(9, true, inventoryOwner);
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
 
-            if (!inventoryMenu.activeSelf)
-            {
-                inventoryMenu.SetActive(true);
-                crosshair.SetActive(false);
-            } else
-            {
-                inventoryMenu.SetActive(false);
-                crosshair.SetActive(true);
-            }
+            inventoryMenu.SetActive(!inventoryMenu.activeSelf);
+            crosshair.SetActive(!crosshair.activeSelf);
         }
 
         inHandDisplay.text = itemInHand.ToString();
