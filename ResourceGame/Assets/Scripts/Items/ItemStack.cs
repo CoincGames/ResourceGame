@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public abstract class ItemStack : MonoBehaviour
+public class ItemStack : MonoBehaviour
 {
     public new string name { get; set; }
     public int amount { get; set; }
@@ -8,6 +8,16 @@ public abstract class ItemStack : MonoBehaviour
     public float xp { get; set; }
     public bool dropped { get; set; }
     public ItemType type { get; set; }
+
+    protected ItemStack(string name, int amount, int maxStackSize, float xp, bool dropped, ItemType type)
+    {
+        this.name = name;
+        this.amount = amount;
+        this.maxStackSize = maxStackSize;
+        this.xp = xp;
+        this.dropped = dropped;
+        this.type = type;
+    }
 
     public virtual void PickUp(PlayerExperience experience, PlayerInventory inventory)
     {
@@ -18,18 +28,15 @@ public abstract class ItemStack : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void addToInv(ItemType itemType, PlayerInventory inventory)
+    public void addToInv(ItemType itemType, PlayerInventory playerInventory)
     {
-        if (inventory.invMap.ContainsKey(itemType))
+        // Try to add and stack to the existing players item stacks
+        ItemStack leftOver = playerInventory.inventory.TryAddItem(new ItemStack("Test_Item", 5, 100, 1, false, ItemType.SmallRock));
+
+        if (leftOver != null)
         {
-            int valuedPreviouslyMapped;
-            inventory.invMap.TryGetValue(itemType, out valuedPreviouslyMapped);
-            inventory.invMap.Remove(itemType);
-            inventory.invMap.Add(itemType, valuedPreviouslyMapped + 1);
-        }
-        else
-        {
-            inventory.invMap.Add(itemType, 1);
+            // TODO Player inventory is full.  Spawn whatever is left near the player on the ground.
+
         }
     }
 

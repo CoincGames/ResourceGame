@@ -32,20 +32,50 @@ public class Container : IEnumerable<ItemStack>
         this.location = location;
     }
 
+    public int GetStackableSlotForItemType(ItemStack.ItemType itemType)
+    {
+        foreach (int key in inventoryMap.Keys)
+        {
+            ItemStack stackAtKey;
+            inventoryMap.TryGetValue(key, out stackAtKey);
+
+            if (stackAtKey != null && stackAtKey.type == itemType && stackAtKey.amount < stackAtKey.maxStackSize)
+                return key;
+        }
+
+        return -1;
+    }
+
+    public bool ContainsItemType(ItemStack.ItemType itemType)
+    {
+        foreach (int key in inventoryMap.Keys)
+        {
+            ItemStack stackAtKey;
+            inventoryMap.TryGetValue(key, out stackAtKey);
+
+            if (stackAtKey != null && stackAtKey.type == itemType)
+                return true;
+        }
+
+        return false;
+    }
+
     public Vector3 GetLocation()
     {
         return isPlayer ? player.transform.position : location;
     }
 
-    public bool TryAddItem(ItemStack item)
+    public ItemStack TryAddItem(ItemStack item)
     {
         if (!CanAddItem())
-            return false; // TODO send a thing back, let them know inventory is full
+            return item;
+
+        // TODO should really check for similar item types in the inventory before creating a new extry. 
 
         inventoryMap.Add(inventoryMap.Count, item);
 
         refresh();
-        return true;
+        return null;
     }
 
     public bool CanAddItem()

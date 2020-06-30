@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerInventory : MonoBehaviour
 {
-    [Tooltip("The player who owns this inventory (GAMEOBJECT)")]
+    [Tooltip("The player who owns this inventory (Player's GameObject)")]
     public GameObject inventoryOwner;
 
     [Tooltip("The max items a player can carry at one time.")]
@@ -17,8 +16,6 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField]
     [Tooltip("The crosshair view to open when the menu gets closed.")]
     private GameObject crosshair = null;
-
-    public Dictionary<ItemStack.ItemType, int> invMap = new Dictionary<ItemStack.ItemType, int>();
 
     // TEMP
     public ItemStack.ItemType itemInHand = ItemStack.ItemType.Null;
