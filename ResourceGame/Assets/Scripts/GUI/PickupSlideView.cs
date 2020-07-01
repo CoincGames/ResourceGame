@@ -22,14 +22,14 @@ public class PickupSlideView : MonoBehaviour
                 return;
             }
 
-            if (notif.GetType() == typeof(ResourceNotif))
+            if (notif.GetType() == typeof(ItemStackNotif))
             {
-                ResourceNotif rssNotif = (ResourceNotif) notif;
+                ItemStackNotif rssNotif = (ItemStackNotif) notif;
                 foreach (Notification notification in hudQueue)
                 {
-                    if (notification.GetType() == typeof(ResourceNotif))
+                    if (notification.GetType() == typeof(ItemStackNotif))
                     {
-                        ((ResourceNotif)notification).count += rssNotif.count;
+                        ((ItemStackNotif)notification).count += rssNotif.count;
                         return;
                     }
                 }

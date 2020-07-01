@@ -39,7 +39,9 @@ public class Container : IEnumerable<ItemStack>
             ItemStack stackAtKey;
             inventoryMap.TryGetValue(key, out stackAtKey);
 
-            if (stackAtKey != null && stackAtKey.type == itemType && stackAtKey.amount < stackAtKey.maxStackSize)
+            int maxStackSize = (stackAtKey.GetType() == typeof(ItemStack)) ? ItemStack.DEFAULT_MAX_STACKSIZE : DurabilityItem.DURABILITY_MAX_STACKSIZE;
+
+            if (stackAtKey != null && stackAtKey.type == itemType && stackAtKey.amount < maxStackSize)
                 return key;
         }
 

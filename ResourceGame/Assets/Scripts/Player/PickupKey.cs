@@ -36,7 +36,7 @@ public class PickupKey : MonoBehaviour
 
         if (hit && hitInfo.collider.tag == "Pickup")
         {
-            wantToSelect = hitInfo.collider.gameObject.GetComponent<Resource>();
+            wantToSelect = hitInfo.collider.gameObject.GetComponent<ItemStack>();
             if (!pickupText.gameObject.activeSelf)
             {
                 pickupText.gameObject.SetActive(true);
@@ -60,7 +60,7 @@ public class PickupKey : MonoBehaviour
         {
             if (wantToSelect != null)
             {
-                pickupSlideView.display(new ResourceNotif(wantToSelect.type, wantToSelect.amount));
+                pickupSlideView.display(new ItemStackNotif(wantToSelect));
                 wantToSelect.PickUp(gameObject.GetComponentInParent<PlayerExperience>(), gameObject.GetComponentInParent<PlayerInventory>());
             }
         }

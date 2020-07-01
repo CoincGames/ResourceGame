@@ -2,18 +2,18 @@
 
 public class ItemStack : MonoBehaviour
 {
+    public static int DEFAULT_MAX_STACKSIZE = 100;
+
     public new string name { get; set; }
     public int amount { get; set; }
-    public int maxStackSize { get; set; }
     public float xp { get; set; }
     public bool dropped { get; set; }
     public ItemType type { get; set; }
 
-    protected ItemStack(string name, int amount, int maxStackSize, float xp, bool dropped, ItemType type)
+    protected ItemStack(string name, int amount, float xp, bool dropped, ItemType type)
     {
         this.name = name;
         this.amount = amount;
-        this.maxStackSize = maxStackSize;
         this.xp = xp;
         this.dropped = dropped;
         this.type = type;
@@ -21,17 +21,18 @@ public class ItemStack : MonoBehaviour
 
     public virtual void PickUp(PlayerExperience experience, PlayerInventory inventory)
     {
-        addToInv(type, inventory);
+        addToInv(inventory);
+
         if (!dropped)
             experience.addXp(xp);
 
         Destroy(gameObject);
     }
 
-    public void addToInv(ItemType itemType, PlayerInventory playerInventory)
+    public void addToInv(PlayerInventory playerInventory)
     {
         // Try to add and stack to the existing players item stacks
-        ItemStack leftOver = playerInventory.inventory.TryAddItem(new ItemStack("Test_Item", 5, 100, 1, false, ItemType.SmallRock));
+        ItemStack leftOver = playerInventory.inventory.TryAddItem(this);
 
         if (leftOver != null)
         {
@@ -48,6 +49,9 @@ public class ItemStack : MonoBehaviour
 
         // EquippableItems
 
+
+        // Placeable Items
+        Shield,
 
         // Resources
         SmallRock,

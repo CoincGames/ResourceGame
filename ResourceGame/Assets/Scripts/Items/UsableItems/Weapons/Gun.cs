@@ -7,15 +7,11 @@ public class Gun : ActionItem
     public int magSize { get; set; }
     public int ammoInMag { get; set; }
 
-    // Start is called before the first frame update
-    void Start()
+    public Gun(string name, ItemType itemType, float damage, int range, int magSize, int ammoInMag) : base(name, 5, false, itemType, 250, 250)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        this.damage = damage;
+        this.range = range;
+        this.magSize = magSize;
+        this.ammoInMag = ammoInMag;
     }
 }

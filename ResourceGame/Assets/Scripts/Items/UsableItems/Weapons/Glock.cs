@@ -2,10 +2,5 @@
 
 public class Glock : Gun
 {
-    public Glock()
-    {
-        damage = 17.5f;
-        range = 50;
-        magSize = 13;
-    }
+    public Glock() : base("Glock", ItemType.Glock, 17.5f, 50, 13, 13) { }
 }

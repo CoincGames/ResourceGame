@@ -2,10 +2,12 @@
 
 public class DurabilityItem : ItemStack
 {
+    public static int DURABILITY_MAX_STACKSIZE = 1;
+
     public int maxDurability { get; set; }
     public int durability { get; set; }
 
-    public DurabilityItem(string name, int amount, int maxStackSize, float xp, bool dropped, ItemType type, int maxDurability, int durability) : base(name, amount, maxStackSize, xp, dropped, type)
+    public DurabilityItem(string name, int amount, float xp, bool dropped, ItemType type, int maxDurability, int durability) : base(name, amount, xp, dropped, type)
     {
         this.maxDurability = maxDurability;
         this.durability = durability;
