@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class ItemStackNotif : Notification
+﻿public class ItemStackNotif : Notification
 {
     public ItemStack itemStack { get; set; }
     public int count { get; set; }
