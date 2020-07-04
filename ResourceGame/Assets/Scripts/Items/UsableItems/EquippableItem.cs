@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public abstract class EquippableItem : DurabilityItem
+﻿public abstract class EquippableItem : DurabilityItem
 {
     public EquippableItem(string name, int amount, float xp, bool dropped, ItemType type, int maxDurability, int durability) : base(name, amount, xp, dropped, type, maxDurability, durability)
     {
