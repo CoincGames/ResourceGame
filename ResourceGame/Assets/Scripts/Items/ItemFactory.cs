@@ -5,14 +5,36 @@ using UnityEngine;
 public class ItemFactory : MonoBehaviour
 {
     [Header("Item Stack Dictionary")]
-    public ItemStackEntry[] itemStackEntry;
+    public ItemStackEntry[] itemStackDictionary;
 
     [System.Serializable]
     public struct ItemStackEntry
     {
         public string name;
         public GameObject itemStack;
+
+        public ItemStackEntry(string name, GameObject itemStack)
+        {
+            this.name = name;
+            this.itemStack = itemStack;
+        }
     }
 
+    public ItemStackEntry GetResourceByName(string name)
+    {
+        foreach(ItemStackEntry itemStackEntry in itemStackDictionary)
+        {
+            if (string.Equals(itemStackEntry.name, name))
+                return itemStackEntry;
+        }
 
+        return new ItemStackEntry(null, null);
+    }
+
+    public void CreateResourceAtLocation(GameObject resourceToCreate, Vector3 location)
+    {
+
+    }
+
+    // TODO ITEMSTACK ENUMS!
 }
