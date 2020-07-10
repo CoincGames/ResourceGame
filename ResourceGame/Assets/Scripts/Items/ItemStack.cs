@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class ItemStack : MonoBehaviour
 {
@@ -40,25 +41,45 @@ public class ItemStack : MonoBehaviour
 
         }
     }
+}
 
-    public enum ItemType
+public class ItemType
+{
+    // ActionItems
+    public static readonly ItemType AXE = new ItemType("AXE");
+    public static readonly ItemType GLOCK = new ItemType("GLOCK");
+
+    // EquippableItems
+
+
+    // Placeable Items
+    public static readonly ItemType SHIELD = new ItemType("SHIELD");
+
+    // Resources
+    public static readonly ItemType SMALL_ROCK = new ItemType("SMALL_ROCK");
+    public static readonly ItemType WOOD_LOG = new ItemType("WOOD_LOG");
+    public static readonly ItemType WOOD_STICK = new ItemType("WOOD_STICK");
+
+    // Other
+    public static readonly ItemType NULL = new ItemType("NULL");
+
+    public static IEnumerable<ItemType> Values
     {
-        // ActionItems
-        Axe,
-        Glock,
-
-        // EquippableItems
-
-
-        // Placeable Items
-        Shield,
-
-        // Resources
-        SmallRock,
-        WoodStick,
-        WoodLog,
-
-        // Other
-        Null
+        get
+        {
+            yield return AXE;
+            yield return GLOCK;
+            yield return SHIELD;
+            yield return SMALL_ROCK;
+            yield return WOOD_LOG;
+            yield return WOOD_STICK;
+            yield return NULL;
+        }
     }
+
+
+    // Instance variables
+    public string ItemTypeName { get; private set; }
+
+    ItemType(string itemTypeName) => (ItemTypeName) = (itemTypeName);
 }
