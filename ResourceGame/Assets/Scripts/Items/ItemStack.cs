@@ -38,7 +38,8 @@ public class ItemStack : MonoBehaviour
         if (leftOver != null)
         {
             // TODO Player inventory is full.  Spawn whatever is left near the player on the ground.
-
+            ItemFactory itemFactory = FindObjectOfType<ItemFactory>();
+            itemFactory.CreateResourceAtLocation(leftOver.gameObject, playerInventory.inventoryOwner.transform.position, leftOver.amount, leftOver.xp, leftOver.dropped, leftOver.type);
         }
     }
 }

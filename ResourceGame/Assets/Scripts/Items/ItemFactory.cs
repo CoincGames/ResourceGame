@@ -31,7 +31,7 @@ public class ItemFactory : MonoBehaviour
         return new ItemStackEntry(null, null);
     }
 
-    public void CreateResourceAtLocation(GameObject resourceToCreate, Vector3 location, int stackSize, float xpAmount, bool dropped, ItemStack.ItemType itemType)
+    public void CreateResourceAtLocation(GameObject resourceToCreate, Vector3 location, int stackSize, float xpAmount, bool dropped, ItemType itemType)
     {
         GameObject created = Instantiate(resourceToCreate, location, resourceToCreate.transform.rotation) as GameObject;
 
@@ -41,6 +41,11 @@ public class ItemFactory : MonoBehaviour
         itemStack.xp = xpAmount;
         itemStack.dropped = dropped;
         itemStack.type = itemType;
+    }
+
+    public void CreateResourceAtLocation(GameObject resourceToCreate, Vector3 location, ItemStack itemStack)
+    {
+        CreateResourceAtLocation(resourceToCreate, location, itemStack.amount, itemStack.xp, itemStack.dropped, itemStack.type);
     }
 
     // TODO ITEMSTACK ENUMS!
