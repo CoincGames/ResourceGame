@@ -36,7 +36,7 @@ public class ItemFactory : MonoBehaviour
         GameObject created = Instantiate(resourceToCreate, location, resourceToCreate.transform.rotation) as GameObject;
 
         ItemStack itemStack = created.GetComponent<ItemStack>();
-        itemStack.name = "ENUM_NAME_HERE_FROM_TYPE";
+        itemStack.name = itemType.ItemTypeName;
         itemStack.amount = stackSize;
         itemStack.xp = xpAmount;
         itemStack.dropped = dropped;
@@ -47,6 +47,4 @@ public class ItemFactory : MonoBehaviour
     {
         CreateResourceAtLocation(resourceToCreate, location, itemStack.amount, itemStack.xp, itemStack.dropped, itemStack.type);
     }
-
-    // TODO ITEMSTACK ENUMS!
 }
