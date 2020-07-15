@@ -34,10 +34,14 @@ public static class Utils<T>
 
     public static string Capitalize(string input)
     {
-        input = input.Replace("_", " ");
+        string[] splits = System.Text.RegularExpressions.Regex.Split(input.Replace("_", " "), " ");
+        List<string> output = new List<string>();
 
-        string[] splits = System.Text.RegularExpressions.Regex.Split(input, " ");
+        foreach(string element in splits)
+        {
+            output.Add(element.Length > 0 ? element.Substring(0, 1).ToUpper() + element.Substring(1).ToLower() : "");
+        }
 
-        return "WIP";
+        return string.Join(" ", output);
     }
 }

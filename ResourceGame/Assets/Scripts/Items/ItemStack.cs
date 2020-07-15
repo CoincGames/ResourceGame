@@ -81,6 +81,11 @@ public class ItemType
 
     // Instance variables
     public string EnumName { get; private set; }
+    public string DisplayName { get; private set; }
 
-    ItemType(string enumName) => (EnumName) = (enumName);
+    ItemType(string enumName)
+    {
+        EnumName = enumName;
+        DisplayName = Utils<string>.Capitalize(EnumName);
+    }
 }
