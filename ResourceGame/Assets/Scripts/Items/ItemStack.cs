@@ -80,7 +80,7 @@ public class ItemType
 
 
     // Instance variables
-    public string ItemTypeName { get; private set; }
+    public string EnumName { get; private set; }
 
-    ItemType(string itemTypeName) => (ItemTypeName) = (itemTypeName);
+    ItemType(string enumName) => (EnumName) = (enumName);
 }

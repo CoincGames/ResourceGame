@@ -16,7 +16,7 @@ public class SpawnItemTesting : MonoBehaviour
         if (Input.GetKeyDown("`"))
         {
             ItemFactory factory = FindObjectOfType<ItemFactory>();
-            factory.CreateResourceAtLocation(resourceToSpawn, player.transform.position, 16, 2.5f, true, ItemStack.ItemType.SmallRock);
+            factory.CreateResourceAtLocation(resourceToSpawn, player.transform.position, 16, 2.5f, true, ItemType.SMALL_ROCK);
         }
     }
 }

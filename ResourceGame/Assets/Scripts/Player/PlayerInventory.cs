@@ -18,7 +18,7 @@ public class PlayerInventory : MonoBehaviour
     private GameObject crosshair = null;
 
     // TEMP
-    public ItemStack.ItemType itemInHand = ItemStack.ItemType.Null;
+    public ItemType itemInHand = ItemType.NULL;
 
     // TEMP
     public Text inHandDisplay;

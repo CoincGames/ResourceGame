@@ -36,7 +36,7 @@ public class ItemFactory : MonoBehaviour
         GameObject created = Instantiate(resourceToCreate, location, resourceToCreate.transform.rotation) as GameObject;
 
         ItemStack itemStack = created.GetComponent<ItemStack>();
-        itemStack.name = itemType.ItemTypeName;
+        itemStack.name = itemType.DisplayName;
         itemStack.amount = stackSize;
         itemStack.xp = xpAmount;
         itemStack.dropped = dropped;

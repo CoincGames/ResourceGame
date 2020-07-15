@@ -32,7 +32,7 @@ public class Container : IEnumerable<ItemStack>
         this.location = location;
     }
 
-    public int GetStackableSlotForItemType(ItemStack.ItemType itemType)
+    public int GetStackableSlotForItemType(ItemType itemType)
     {
         foreach (int key in inventoryMap.Keys)
         {
@@ -48,7 +48,7 @@ public class Container : IEnumerable<ItemStack>
         return -1;
     }
 
-    public bool ContainsItemType(ItemStack.ItemType itemType)
+    public bool ContainsItemType(ItemType itemType)
     {
         foreach (int key in inventoryMap.Keys)
         {

@@ -31,4 +31,13 @@ public static class Utils<T>
             }
         }
     }
+
+    public static string Capitalize(string input)
+    {
+        input = input.Replace("_", " ");
+
+        string[] splits = System.Text.RegularExpressions.Regex.Split(input, " ");
+
+        return "WIP";
+    }
 }
