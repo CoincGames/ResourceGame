@@ -83,7 +83,8 @@ public class Container : IEnumerable<ItemStack>
     public bool CanAddItem()
     {
         // TODO more complex logic for itemstacking instead of creating a new inventory slot
-        return inventoryMap.Count >= getMaxSize();
+
+        return inventoryMap.Count <= getMaxSize();
     }
 
     public bool TryRemoveItem(ItemStack item)
