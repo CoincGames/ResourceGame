@@ -14,4 +14,18 @@ public class Gun : ActionItem
         this.magSize = magSize;
         this.ammoInMag = ammoInMag;
     }
+
+    public override void Action1()
+    {
+        base.Action1();
+
+        ammoInMag--;
+    }
+
+    public override void Action2()
+    {
+        base.Action2();
+
+
+    }
 }
