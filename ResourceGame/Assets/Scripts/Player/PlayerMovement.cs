@@ -40,6 +40,9 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("The layer for which the ground checker is searching for.\n\nNOTE: Anything that should be stood on, should be of part Terrain.")]
     public LayerMask groundLayer;
 
+    public bool isMovingForwardBackward;
+    public bool isMovingLeftRight;
+
     Vector3 velocity;
     bool isGrounded;
 
@@ -66,6 +69,9 @@ public class PlayerMovement : MonoBehaviour
     {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
+
+        isMovingForwardBackward = z != 0;
+        isMovingLeftRight = x != 0;
 
         Vector3 moveVector = transform.right * x + transform.forward * z;
 
