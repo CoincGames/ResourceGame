@@ -5,11 +5,11 @@ public class ItemStack : MonoBehaviour
 {
     public static int DEFAULT_MAX_STACKSIZE = 100;
 
-    public new string name { get; set; }
-    public int amount { get; set; }
-    public float xp { get; set; }
-    public bool dropped { get; set; }
-    public ItemType type { get; set; }
+    public new string name;
+    public int amount;
+    public float xp;
+    public bool dropped;
+    public ItemType type;
 
     protected ItemStack(string name, int amount, float xp, bool dropped, ItemType type)
     {
