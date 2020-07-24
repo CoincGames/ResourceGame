@@ -94,8 +94,8 @@ public class PlayerInventory : MonoBehaviour
         itemInHand.transform.localPosition = Vector3.Lerp(itemInHand.transform.localPosition,initPos + finalPos, Time.deltaTime * smoothAmount);
 
         // Rotation
-        float tiltY = -Input.GetAxis("Mouse X") * rotationSwayAmount;
-        float tiltX = -Input.GetAxis("Mouse Y") * rotationSwayAmount;
+        float tiltY = Input.GetAxis("Mouse X") * rotationSwayAmount;
+        float tiltX = Input.GetAxis("Mouse Y") * rotationSwayAmount;
 
         tiltY = Mathf.Clamp(tiltY, -maxRotationSwayAmount, maxRotationSwayAmount);
         tiltX = Mathf.Clamp(tiltX, -maxRotationSwayAmount, maxRotationSwayAmount);
@@ -113,6 +113,7 @@ public class PlayerInventory : MonoBehaviour
         if (playerMovement.isMovingForwardBackward)
         {
             // Do little hops here
+
         }
 
         if (playerMovement.isMovingLeftRight)
