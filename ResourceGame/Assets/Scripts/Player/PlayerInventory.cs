@@ -91,7 +91,13 @@ public class PlayerInventory : MonoBehaviour
         movementY = Mathf.Clamp(movementY, -maxSwayAmount, maxSwayAmount);
 
         Vector3 finalPos = new Vector3(movementX, movementY, 0);
-        itemInHand.transform.localPosition = Vector3.Lerp(itemInHand.transform.localPosition,initPos + finalPos, Time.deltaTime * smoothAmount);
+
+        Vector3 swayPos = Vector3.zero;
+        if (playerMovement.isMovingLeftRight)
+        {
+            float value = 5 * swayAmount * Mathf.Sin(Time.time);
+            swayPos = new Vector3(value, value, 0);
+        }
 
         // Rotation
         float tiltY = Input.GetAxis("Mouse X") * rotationSwayAmount;
@@ -108,17 +114,20 @@ public class PlayerInventory : MonoBehaviour
             )
         );
 
-        itemInHand.transform.localRotation = Quaternion.Slerp(itemInHand.transform.localRotation, initRot * finalRotPos, Time.deltaTime * smoothAmount);
-
+        Quaternion rotPos = Quaternion.Euler(Vector3.zero);
         if (playerMovement.isMovingForwardBackward)
         {
-            // Do little hops here
-
+            float value = .8f * rotationSwayAmount * Mathf.Sin(Time.time);
+            rotPos = Quaternion.Euler(
+                new Vector3(
+                    rotationX ? -value : 0f,
+                    rotationY ? value : 0f,
+                    rotationZ ? value : 0f
+                )
+            );
         }
 
-        if (playerMovement.isMovingLeftRight)
-        {
-            // Do little sways here
-        }
+        itemInHand.transform.localPosition = Vector3.Lerp(itemInHand.transform.localPosition, initPos + finalPos + swayPos, Time.deltaTime * smoothAmount);
+        itemInHand.transform.localRotation = Quaternion.Slerp(itemInHand.transform.localRotation, initRot * finalRotPos * rotPos, Time.deltaTime * smoothAmount);
     }
 }
