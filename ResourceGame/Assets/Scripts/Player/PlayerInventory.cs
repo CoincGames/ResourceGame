@@ -117,7 +117,7 @@ public class PlayerInventory : MonoBehaviour
         Quaternion rotPos = Quaternion.Euler(Vector3.zero);
         if (playerMovement.isMovingForwardBackward)
         {
-            float value = .8f * rotationSwayAmount * Mathf.Sin(Time.time);
+            float value = .8f * rotationSwayAmount * Mathf.Sin(Time.time * (playerMovement.isSprinting? 6 : 3));
             rotPos = Quaternion.Euler(
                 new Vector3(
                     rotationX ? -value : 0f,
