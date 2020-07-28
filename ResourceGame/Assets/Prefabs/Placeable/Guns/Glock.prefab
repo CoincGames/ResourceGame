@@ -11,9 +11,6 @@ GameObject:
   - component: {fileID: 6375334218551667686}
   - component: {fileID: 6375334218551667609}
   - component: {fileID: 6375334218551667608}
-  - component: {fileID: 6375334218551667611}
-  - component: {fileID: 54444392741525326}
-  - component: {fileID: 64229681412498594}
   m_Layer: 0
   m_Name: Glock
   m_TagString: Untagged
@@ -82,49 +79,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &6375334218551667611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6375334218551667610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7eff74e9c3130794eb380ca789b7ca85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: Glock
-  amount: 1
-  xp: 5
-  dropped: 1
---- !u!54 &54444392741525326
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6375334218551667610}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!64 &64229681412498594
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6375334218551667610}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300000, guid: a7c347ac6bef16f4fbd219441c214779, type: 3}
