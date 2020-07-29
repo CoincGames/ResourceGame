@@ -12,7 +12,25 @@ public abstract class ActionItem : DurabilityItem
 
     }
 
-    public virtual void Action1() { }
+    public virtual void Update()
+    {
+        Action1();
+        Action2();
+    }
 
-    public virtual void Action2() { }
+    public virtual void Action1() 
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log("Left Click");
+        }
+    }
+
+    public virtual void Action2()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            Debug.Log("Right Click");
+        }
+    }
 }
