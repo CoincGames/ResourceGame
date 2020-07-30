@@ -12,11 +12,7 @@ public abstract class ActionItem : DurabilityItem
 
     }
 
-    public virtual void Update()
-    {
-        Action1();
-        Action2();
-    }
+    public abstract void Update();
 
     public virtual void Action1() 
     {
