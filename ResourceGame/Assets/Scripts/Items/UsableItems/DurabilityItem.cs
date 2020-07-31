@@ -4,13 +4,21 @@ public class DurabilityItem : ItemStack
 {
     public static int DURABILITY_MAX_STACKSIZE = 1;
 
-    public int maxDurability { get; set; }
-    public int durability { get; set; }
+    public int maxDurability;
+    public int durability;
 
     public DurabilityItem(string name, int amount, float xp, bool dropped, ItemType type, int maxDurability, int durability) : base(name, amount, xp, dropped, type)
     {
         this.maxDurability = maxDurability;
         this.durability = durability;
+    }
+
+    public void Use()
+    {
+        durability--;
+
+        if (durability <= 0)
+            Break();
     }
 
     public virtual void Break()
