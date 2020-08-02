@@ -44,6 +44,12 @@ public class Gun : ActionItem
 
     public void Shoot()
     {
+        // Animation
+        gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, gameObject.transform.rotation * Quaternion.Euler(new Vector3(-80f, 0f, 0f)), Time.deltaTime * 5f);
+
+        // Spawn bullet or particle effect
+
+        // Reduce ammo in mag
         ammoInMag--;
     }
 
