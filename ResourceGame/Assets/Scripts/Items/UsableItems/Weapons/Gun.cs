@@ -48,6 +48,7 @@ public class Gun : ActionItem
         gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, gameObject.transform.rotation * Quaternion.Euler(new Vector3(-80f, 0f, 0f)), Time.deltaTime * 5f);
 
         // Spawn bullet or particle effect
+        //https://www.reddit.com/r/Unity3D/comments/4hhvba/performance_particles_vs_objects_for_ammo/
 
         // Reduce ammo in mag
         ammoInMag--;
