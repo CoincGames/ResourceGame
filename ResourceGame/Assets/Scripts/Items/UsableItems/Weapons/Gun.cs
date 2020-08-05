@@ -45,10 +45,11 @@ public class Gun : ActionItem
     public void Shoot()
     {
         // Animation
+        // https://www.google.com/search?q=unity+doing+reload+animation&rlz=1C1CHBF_enUS879US879&oq=unity+doing+reload+animation&aqs=chrome..69i57j33.2789j0j7&sourceid=chrome&ie=UTF-8#kpvalbx=_dEMqX57_B4H--gSP64No19
         gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, gameObject.transform.rotation * Quaternion.Euler(new Vector3(-80f, 0f, 0f)), Time.deltaTime * 5f);
 
         // Spawn bullet or particle effect
-        //https://www.reddit.com/r/Unity3D/comments/4hhvba/performance_particles_vs_objects_for_ammo/
+        // https://www.reddit.com/r/Unity3D/comments/4hhvba/performance_particles_vs_objects_for_ammo/
 
         // Reduce ammo in mag
         ammoInMag--;
