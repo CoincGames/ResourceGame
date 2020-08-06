@@ -23,7 +23,7 @@ public class PlayerInventory : MonoBehaviour
     public Container inventory;
 
     public PlayerMovement playerMovement;
-    public GameObject FPSCamera;
+    public GameObject weaponHolder;
     public GameObject itemInHand;
     public Vector3 ItemOffset;
     public float ItemInHandDistanceFromCamera;
@@ -81,7 +81,7 @@ public class PlayerInventory : MonoBehaviour
     private void updateItemInHandLocation()
     {
         Vector3 offset = itemInHand.transform.rotation * ItemOffset;
-        itemInHand.transform.position = FPSCamera.transform.position + offset + FPSCamera.transform.forward * ItemInHandDistanceFromCamera;
+        itemInHand.transform.position = weaponHolder.transform.position + offset + weaponHolder.transform.forward * ItemInHandDistanceFromCamera;
 
         // Sway
         float movementX = -Input.GetAxis("Mouse X") * swayAmount;
