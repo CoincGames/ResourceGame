@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Gun : ActionItem
 {
@@ -6,6 +7,8 @@ public class Gun : ActionItem
     public int range;
     public int magSize;
     public int ammoInMag;
+
+    public bool reloading;
 
     public Gun(string name, ItemType itemType, float damage, int range, int magSize, int ammoInMag) : base(name, 5, false, itemType, 250, 250)
     {
@@ -28,7 +31,7 @@ public class Gun : ActionItem
     {
         base.Action1();
 
-        if (ammoInMag > 0)
+        if (ammoInMag > 0 && !reloading)
         {
             Debug.Log("Shoot");
             Shoot();
@@ -37,9 +40,8 @@ public class Gun : ActionItem
         {
             Debug.Log("Click, Ammo = " + ammoInMag +"/" + magSize);
             // Start reload here
-            Reload();
+            StartCoroutine(Reload());
         }
-        Use();
     }
 
     public void Shoot()
@@ -55,12 +57,19 @@ public class Gun : ActionItem
         ammoInMag--;
     }
 
-    public void Reload()
+    public IEnumerator Reload()
     {
+        reloading = true;
+
         // Animation
+        // https://youtu.be/kAx5g9V5bcM?t=348
+
+        // Length of the reload animation
+        yield return new WaitForSeconds(1.5f);
 
         // Set ammo back to max mag size at end of animation
         ammoInMag = magSize;
+        reloading = false;
     }
 
     public void ADS()
