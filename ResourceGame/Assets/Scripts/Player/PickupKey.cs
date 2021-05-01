@@ -29,7 +29,7 @@ public class PickupKey : MonoBehaviour
     private void findNearestPickupInLOS()
     {
         RaycastHit hitInfo;
-        // =~ is a binary inversion operator... in this case it gets all layers that ARENT Player
+        // =~ is a binary inversion operator... in this case it gets all layers that ARE NOT Player
         int layerMask = ~LayerMask.GetMask("Player");
 
         bool hit = Physics.Raycast(viewFromCamera.transform.position, viewFromCamera.transform.forward, out hitInfo, 7f, layerMask);
